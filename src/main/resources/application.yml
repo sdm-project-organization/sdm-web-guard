@@ -1,0 +1,25 @@
+
+# server
+server:
+  port: 11101 # local
+
+# spring
+spring:
+  application:
+    name: guard
+  profiles:
+    active: default
+
+  datasource:
+    url: jdbc:mysql://13.125.130.224:10001/GUARD?verifyServerCertificate=false&useSSL=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        show_sql: true
