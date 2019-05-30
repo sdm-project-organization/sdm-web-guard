@@ -11,7 +11,7 @@
     <groupId>com.sdm</groupId>
     <artifactId>guard</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>login</name>
+    <name>guard</name>
 
     <properties>
         <java.version>1.8</java.version>
@@ -19,24 +19,43 @@
 
     <dependencies>
 
-        <!-- Spring Boot : security -->
+        <!-- Spring Boot : securitys -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- Spring : security test -->
+        <!-- Spring Cloud : securitys -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-security</artifactId>
+        </dependency>
+
+        <!-- Spring : securitys oauth -->
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2-client</artifactId>
+        </dependency>
+
+        <!-- Spring : securitys oauth2-autuconfig -->
+        <dependency>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+            <version>2.0.3.RELEASE</version>
+        </dependency>
+
+        <!-- Spring : securitys test -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- thymeleaf : extras springsecurity4 -->
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
-        </dependency>
+        <!--&lt;!&ndash; thymeleaf : extras springsecurity4 &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.thymeleaf.extras</groupId>-->
+            <!--<artifactId>thymeleaf-extras-springsecurity4</artifactId>-->
+        <!--</dependency>-->
 
         <!-- Spring Boot : web -->
         <dependency>
@@ -75,6 +94,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
+        </dependency>
+
+        <!-- Spring Cloud : client -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-client</artifactId>
         </dependency>
 
     </dependencies>

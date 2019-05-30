@@ -3,6 +3,12 @@
 server:
   port: 11101 # local
 
+# security
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:11201/auth/user
+
 # spring
 spring:
   application:

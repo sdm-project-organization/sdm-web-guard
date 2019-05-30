@@ -8,40 +8,70 @@ public interface CommonService<T> {
 
     // count
 
-    long count();
+    default long count() {
+        return 0;
+    };
 
     // find
 
-    T findBySequence(int sequence);
+    default T findBySequence(int sequence) {
+        return null;
+    };
 
-    T findBySequenceAndEnableFlag(int sequence, byte enableFlag);
+    default T findBySequenceAndEnableFlag(int sequence, byte enableFlag) {
+        return null;
+    };
 
-    T findBySequenceAndActiveFlagAndEnableFlag(int sequence, byte activeFlag, byte enableFlag);
+    default T findBySequenceAndActiveFlagAndEnableFlag(int sequence, byte activeFlag, byte enableFlag) {
+        return null;
+    };
 
-    List<T> findAllByDisplayName(String displayName);
+    default List<T> findAllByDisplayName(String displayName) {
+        return null;
+    };
 
-    List<T> findAllByDisplayNameAndEnableFlag(String displayName, byte enableFlag);
+    default List<T> findAllByDisplayNameAndEnableFlag(String displayName, byte enableFlag) {
+        return null;
+    };
 
-    List<T> findAllByDisplayNameAndActiveFlagAndEnableFlag(String displayName, byte activeFlag, byte enableFlag);
+    default List<T> findAllByDisplayNameAndActiveFlagAndEnableFlag(String displayName, byte activeFlag, byte enableFlag) {
+        return null;
+    };
 
-    Page<T> findAllByPage(int offset, int limit);
+    default Page<T> findAllByPage(int offset, int limit) {
+        return null;
+    };
 
     // save
 
-    T save(T obj) throws Exception;
+    default T save(T obj) throws Exception {
+        return null;
+    }
 
-    List<T> saveAll(List<T> list);
+    default List<T> saveAll(List<T> list) {
+        return null;
+    }
 
     // update
 
-    void updateBySequence(int sequence, T tree) throws Exception;
+    default void updateBySequence(int sequence, T tree) throws Exception {
 
-    void active(int sequence);
+    }
 
-    void unactive(int sequence);
+    default void active(int sequence) {
 
-    void enable(int sequence);
+    }
 
-    void unenable(int sequence) throws Exception;
+    default void unactive(int sequence) {
+
+    }
+
+    default void enable(int sequence) {
+
+    }
+
+    default void unenable(int sequence) throws Exception {
+
+    }
 
 }
