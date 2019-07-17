@@ -1,27 +1,37 @@
 
-# server
+
 server:
-  port: 11101 # local
+  port: 9999
 
-# security
-security:
-  oauth2:
-    resource:
-      user-info-uri: http://localhost:11201/auth/user
+signing:
+ key: "345345fsdgsf5345"
 
-# spring
+
+env:
+  host:
+    local: localhost
+    dev: dev.avocadostudio.xyz
+  db:
+    local:
+      port: 3306
+      schema: GUARD
+    dev:
+      port: 3306
+      schema: GUARD
+
+---
+
+# ================ DEFAULT ================
+
 spring:
+  profiles: default
   application:
     name: guard
-  profiles:
-    active: default
-
   datasource:
-    url: jdbc:mysql://13.125.130.224:10001/GUARD?verifyServerCertificate=false&useSSL=true
+    url: jdbc:mysql://${env.host.dev}:${env.db.dev.port}/${env.db.dev.schema}?verifyServerCertificate=false&useSSL=true
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
     hibernate:
       naming:
@@ -29,3 +39,56 @@ spring:
     properties:
       hibernate:
         show_sql: true
+  main:
+    allow-bean-definition-overriding: true
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://${env.host.dev}:8090/auth/user
+
+eureka:
+  instance:
+    hostname: ${env.host.local}
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+  serviceUrl:
+    defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+
+---
+
+# ================ DEV ================
+
+spring:
+  profiles: dev
+  application:
+    name: guard
+  datasource:
+    url: jdbc:mysql://${env.host.dev}:${env.db.dev.port}/${env.db.dev.schema}?verifyServerCertificate=false&useSSL=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        show_sql: true
+  main:
+    allow-bean-definition-overriding: true
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://${env.host.dev}:8090/auth/user
+
+eureka:
+  instance:
+    hostname: ${env.host.dev}
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+  serviceUrl:
+    defaultZone: http://${eureka.instance.hostname}:8761/eureka/
