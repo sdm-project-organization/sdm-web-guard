@@ -38,7 +38,6 @@
         <dependency>
             <groupId>org.springframework.security.oauth</groupId>
             <artifactId>spring-security-oauth2-client</artifactId>
-            <version>RELEASE</version>
         </dependency>
 
         <!-- Spring Boot : securitys -->
@@ -54,13 +53,6 @@
             <artifactId>spring-cloud-security</artifactId>
             <version>2.1.2.RELEASE</version>
         </dependency>
-
-        <!-- Spring : securitys oauth2-autuconfig -->
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.security.oauth.boot</groupId>-->
-        <!--<artifactId>spring-security-oauth2-autoconfigure</artifactId>-->
-        <!--<version>2.0.3.RELEASE</version>-->
-        <!--</dependency>-->
 
         <!-- Spring : Security JWT -->
         <dependency>

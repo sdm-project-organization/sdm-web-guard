@@ -34,19 +34,16 @@ public class GuardApplication extends SpringBootServletInitializer {
         SpringApplication.run(GuardApplication.class, args);
     }
 
-    @Primary
     @Bean
+    @Primary
     public RestTemplate getCustomRestTemplate() {
+        // new UserContextInterceptor() = Authorization 헤더를 모든 REST 호출에 삽입
         RestTemplate template = new RestTemplate();
         List interceptors = template.getInterceptors();
         if (interceptors == null) {
-            template.setInterceptors(Collections.singletonList(
-                    // UserContextInterceptor = Authorization 헤더를 모든 REST 호출에 삽입
-                    new UserContextInterceptor()));
+            template.setInterceptors(Collections.singletonList(new UserContextInterceptor()));
         } else {
-            interceptors.add(
-                    // UserContextInterceptor = Authorization 헤더를 모든 REST 호출에 삽입
-                    new UserContextInterceptor());
+            interceptors.add(new UserContextInterceptor());
             template.setInterceptors(interceptors);
         }
         return template;
