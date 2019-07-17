@@ -1,10 +1,13 @@
 package com.mo.guard;
 
 import com.mo.guard.utils.UserContext;
+import com.mo.guard.utils.UserContextFilter;
 import com.mo.guard.utils.UserContextInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -20,21 +23,22 @@ import java.util.List;
  * `security.oauth2.resource.userInfoUri`에 정의된 콜백 URL로 다시 호출
  * */
 @SpringBootApplication
+//@EnableEurekaClient
+//@EnableCircuitBreaker
 @EnableResourceServer
 public class GuardApplication extends SpringBootServletInitializer {
-
-    /*@Bean
-    public Filter userContextFilter() {
-        *//*UserContextFilter userContextFilter = new UserContextFilter();
-        return userContextFilter;*//*
-        return null;
-    }*/
 
     public static void main(String[] args) {
         SpringApplication.run(GuardApplication.class, args);
     }
 
     @Bean
+    public Filter userContextFilter() {
+        UserContextFilter userContextFilter = new UserContextFilter();
+        return userContextFilter;
+    }
+
+    /*@Bean
     @Primary
     public RestTemplate getCustomRestTemplate() {
         // new UserContextInterceptor() = Authorization 헤더를 모든 REST 호출에 삽입
@@ -47,6 +51,6 @@ public class GuardApplication extends SpringBootServletInitializer {
             template.setInterceptors(interceptors);
         }
         return template;
-    }
+    }*/
 
 }

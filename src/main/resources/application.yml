@@ -49,7 +49,7 @@ security:
 
 eureka:
   instance:
-    hostname: ${env.host.dev}
+    hostname: ${env.host.local}
   client:
     registerWithEureka: true
     fetchRegistry: true

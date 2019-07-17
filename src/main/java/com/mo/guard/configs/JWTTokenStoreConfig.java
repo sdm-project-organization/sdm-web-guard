@@ -1,4 +1,4 @@
-package com.mo.oauth2.config;
+package com.mo.guard.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -20,12 +20,12 @@
 
     <dependencies>
 
-        <!-- Spring Cloud : client -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-client</artifactId>
-            <version>2.0.2.RELEASE</version>
-        </dependency>
+        <!-- Spring Cloud : Config Client -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-config-client</artifactId>-->
+            <!--<version>2.0.2.RELEASE</version>-->
+        <!--</dependency>-->
 
         <!-- Spring Cloud : Discovery Client -->
         <dependency>
@@ -34,24 +34,41 @@
             <version>2.0.2.RELEASE</version>
         </dependency>
 
-        <!-- Spring : securitys oauth -->
-        <dependency>
-            <groupId>org.springframework.security.oauth</groupId>
-            <artifactId>spring-security-oauth2-client</artifactId>
-        </dependency>
 
-        <!-- Spring Boot : securitys -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-            <version>2.1.5.RELEASE</version>
-        </dependency>
-
-        <!-- Spring Cloud : securitys -->
+        <!-- Spring Cloud : Security -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-security</artifactId>
             <version>2.1.2.RELEASE</version>
+        </dependency>
+
+        <!-- Spring Security : Oauth2 -->
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>2.2.2.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-client</artifactId>
+            <version>5.1.5.RELEASE</version>
+        </dependency>
+
+        <!-- JAXB -->
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.2.11</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.0-b170127.1453</version>
         </dependency>
 
         <!-- Spring : Security JWT -->
@@ -61,32 +78,19 @@
             <version>1.0.9.RELEASE</version>
         </dependency>
 
-        <!-- Spring : securitys test -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!--&lt;!&ndash; thymeleaf : extras springsecurity4 &ndash;&gt;-->
-        <!--<dependency>-->
-        <!--<groupId>org.thymeleaf.extras</groupId>-->
-        <!--<artifactId>thymeleaf-extras-springsecurity4</artifactId>-->
-        <!--</dependency>-->
-
-        <!-- Spring Boot : web -->
+        <!-- Spring Boot : Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Spring Boot : test -->
+        <!-- Spring Boot : Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
 
-        <!-- lombok -->
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
