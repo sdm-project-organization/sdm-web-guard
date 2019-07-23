@@ -38,7 +38,7 @@ public class RelationAuthResourceController {
 
         URI resourceUri = MvcUriComponentsBuilder
                 .relativeTo(uriComponentsBuilder)
-                .withMethodCall(on(RelationAuthResourceController.class).getRelationAuthResource(relationAuthResource.getPk().toString()))
+                .withMethodCall(on(RelationAuthResourceController.class).getRelationAuthResource(relationAuthResource.getKey().toString()))
                 .build().encode().toUri();
         return ResponseEntity.created(resourceUri).build();
     }

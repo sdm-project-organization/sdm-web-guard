@@ -1,6 +1,7 @@
 package com.mo.guard.service.relation;
 
 import com.mo.guard.constant.EnableFlag;
+import com.mo.guard.model.embedded.RelationAuthResourceId;
 import com.mo.guard.model.table.relation.RelationAuthResource;
 import com.mo.guard.repository.relation.RelationAuthResourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.lang.Integer.parseInt;
 
 @Service
 public class RelationAuthResourceServiceImpl implements RelationAuthResourceService {
@@ -28,7 +31,10 @@ public class RelationAuthResourceServiceImpl implements RelationAuthResourceServ
 
     @Override
     public RelationAuthResource findByPkAndEnableFlag(String id, byte enableFlag) {
-        return relationAuthResourceRepository.findByPkAndEnableFlag(id, enableFlag);
+        RelationAuthResourceId relationAuthResourceId = new RelationAuthResourceId(
+                parseInt(id.split("-")[0]),
+                parseInt(id.split("-")[1]));
+        return relationAuthResourceRepository.findByKeyAndEnableFlag(relationAuthResourceId, enableFlag);
     }
 
     @Override

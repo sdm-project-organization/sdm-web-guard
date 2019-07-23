@@ -1,6 +1,7 @@
 package com.mo.guard.service;
 
 import com.mo.guard.constant.EnableFlag;
+import com.mo.guard.model.embedded.RelationAuthResourceId;
 import com.mo.guard.model.table.Auth;
 import com.mo.guard.model.table.relation.RelationAuthResource;
 import com.mo.guard.repository.AuthRepository;
@@ -66,11 +67,11 @@ public class AuthServiceImpl implements AuthService {
     /*@Override*/
     public void updateResourcesBySequence(int authSequence, List<Integer> listOfNewResourceId) throws Exception {
 
-        List<RelationAuthResource> listOfRelationAuthResource = relationAuthResourceRepository
-                .findByAuthSequenceAndEnableFlag(authSequence, EnableFlag.Y.getValue());
+        /*List<RelationAuthResource> listOfRelationAuthResource = relationAuthResourceRepository
+                .findByAuthSequenceAndEnableFlag(authSequence, EnableFlag.Y.getValue());*/
 
         // remove & select
-        List<Integer> listOfOriginResourceId = listOfRelationAuthResource.stream().filter(((resource)->{
+        /*List<Integer> listOfOriginResourceId = listOfRelationAuthResource.stream().filter(((resource)->{
             if(listOfNewResourceId.indexOf(resource.getResourceSequence()) == -1) {
                 resource.setEnableFlag(EnableFlag.N.getValue());
                 return false;
@@ -90,11 +91,16 @@ public class AuthServiceImpl implements AuthService {
         List<RelationAuthResource> result = new ArrayList<>();
         listOfNoDuplicate.forEach((a) -> {
             RelationAuthResource relationAuthResource = new RelationAuthResource();
+
+            // create pk
+            RelationAuthResourceId relationAuthResourceId = new RelationAuthResourceId(authSequence, a);
+            relationAuthResource.setPk(relationAuthResourceId);
+
             relationAuthResource.setAuthSequence(authSequence);
             relationAuthResource.setResourceSequence(a);
             relationAuthResourceRepository.saveAndFlush(relationAuthResource);
             result.add(relationAuthResource);
-        });
+        });*/
 
         /*relationAuthResourceRepository.saveAll(result);*/
         relationAuthResourceRepository.flush();

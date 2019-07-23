@@ -9,12 +9,12 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.util.List;
 
 @NoRepositoryBean
-public interface RelationRepository<T extends Object> extends BaseRepository<T> {
+public interface RelationRepository<T extends Object, M> extends BaseRepository<T> {
 
     // pk
 
-    RelationAuthResource findByPk(String pk);
+    T findByKey(M key);
 
-    RelationAuthResource findByPkAndEnableFlag(String pk, byte enableFlag);
+    T findByKeyAndEnableFlag(M key, byte enableFlag);
 
 }

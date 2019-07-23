@@ -8,7 +8,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.util.List;
 
 @NoRepositoryBean
-public interface DummyRepository<T extends Object> extends BaseRepository<T> /*CrudRepository<T, String>*/ {
+public interface DummyRepository<T extends Object> extends BaseRepository<T> {
 
     // sequence
 

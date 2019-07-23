@@ -4,6 +4,7 @@ import com.mo.guard.constant.ActiveFlag;
 import com.mo.guard.constant.EnableFlag;
 import com.mo.guard.model.embedded.RelationAuthResourceId;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -17,16 +18,17 @@ import java.time.LocalDateTime;
 @Table(name = "G_R_AUTH_RESOURCE_TB")
 @EntityListeners(value = {AuditingEntityListener.class})
 @Data
+@NoArgsConstructor
 public class RelationAuthResource {
 
     @EmbeddedId
-    public RelationAuthResourceId pk;
+    public RelationAuthResourceId key;
 
-    @Column(name = "auth_sq", insertable = false, updatable = false)
-    public int authSequence;
-
-    @Column(name = "resource_sq", insertable = false, updatable = false)
-    public int resourceSequence;
+//    @Column(name = "auth_sq", insertable = false, updatable = false)
+//    public int authSequence;
+//
+//    @Column(name = "resource_sq", insertable = false, updatable = false)
+//    public int resourceSequence;
 
     @Column(name = "disp_ord")
     public Integer displayOrder;
