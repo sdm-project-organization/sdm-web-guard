@@ -14,6 +14,14 @@ public interface CommonService<T> {
 
     // find
 
+    default T findByPk(String pk) {
+        return null;
+    }
+
+    default T findByPkAndEnableFlag(String pk, byte enableFlag) {
+        return null;
+    }
+
     default T findBySequence(int sequence) {
         return null;
     }

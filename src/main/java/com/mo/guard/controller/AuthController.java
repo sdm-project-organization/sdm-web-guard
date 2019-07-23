@@ -64,6 +64,17 @@ public class AuthController {
         return null;
     }
 
+    // [PUT] /auths/{authId}/resources
+    @RequestMapping(path = "/{authId}/resources", method = RequestMethod.PUT)
+    public ResponseEntity<Void> updateResource(
+            @PathVariable int authId,
+            /*@Validated @RequestBody AuthResource authResource) throws Exception {*/
+            @Validated @RequestBody List<Integer> listOfResourceId) throws Exception {
+        /*authService.updateBySequence(authId, authResource.toUpdate().toEntity());*/
+        authService.updateResourcesBySequence(authId, listOfResourceId);
+        return null;
+    }
+
     // [DELETE] /auths/{authId}
     @RequestMapping(path = "/{authId}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteAuth(@PathVariable int authId) {

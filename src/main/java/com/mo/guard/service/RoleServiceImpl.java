@@ -39,9 +39,11 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role updateBySequence(int sequence, Role targetRole) {
         Role originRole = findBySequenceAndEnableFlag(sequence, EnableFlag.Y.getValue());
+        originRole.setExpiredPeriod(targetRole.getExpiredPeriod());
         originRole.setDisplayName(targetRole.getDisplayName());
         originRole.setDisplayOrder(targetRole.getDisplayOrder());
         originRole.setDesc(targetRole.getDesc());
+        originRole.setMeta(targetRole.getMeta());
         roleRepository.flush();
         return originRole;
     }

@@ -22,6 +22,9 @@ public class Role {
     @Column(name = "role_sq")
     public int sequence;
 
+    @Column(name = "expired_period")
+    public int expiredPeriod;
+
     @Column(name = "disp_ord")
     public Integer displayOrder;
 
@@ -30,6 +33,9 @@ public class Role {
 
     @Column(name = "`desc`")
     public String desc;
+
+    @Column(name = "meta")
+    public String meta;
 
     @Column(name = "active_fl", nullable = false)
     public Byte activeFlag = ActiveFlag.Y.getValue();

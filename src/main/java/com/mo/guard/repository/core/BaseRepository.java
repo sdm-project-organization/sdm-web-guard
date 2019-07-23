@@ -8,7 +8,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.util.List;
 
 @NoRepositoryBean
-public interface CommonRepository<T extends Object> extends CrudRepository<T, String> {
+public interface BaseRepository<T extends Object> extends CrudRepository<T, String> {
 
     // common
 
@@ -17,14 +17,6 @@ public interface CommonRepository<T extends Object> extends CrudRepository<T, St
     /*Page<T> findAllByEnableFlag(byte enableFlag, Pageable pageable);*/
 
     Page<T> findAllByActiveFlagAndEnableFlag(byte activeFlag, byte enableFlag, Pageable pageable);
-
-    // sequence
-
-    T findBySequence(int sequence);
-
-    T findBySequenceAndEnableFlag(int sequence, byte enableFlag);
-
-    T findBySequenceAndActiveFlagAndEnableFlag(int sequence, byte activeFlag, byte enableFlag);
 
     // displayName
 
