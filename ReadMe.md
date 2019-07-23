@@ -15,3 +15,9 @@
 서비스관리
 권한관리
 
+## 진행상황
+
+- RESTful API 개발
+- RESOURCE class 설계는 아직 진행하지 않음
+ - RESOURCE class 설계시에 공통화가능할지
+- 보안연동 (OAuth2)
