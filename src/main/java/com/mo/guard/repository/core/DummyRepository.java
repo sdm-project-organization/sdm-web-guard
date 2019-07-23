@@ -1,6 +1,14 @@
 package com.mo.guard.repository.core;
 
-public interface DummyRepository<T> extends BaseRepository<T> {
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.NoRepositoryBean;
+
+import java.util.List;
+
+@NoRepositoryBean
+public interface DummyRepository<T extends Object> extends BaseRepository<T> /*CrudRepository<T, String>*/ {
 
     // sequence
 
@@ -9,4 +17,5 @@ public interface DummyRepository<T> extends BaseRepository<T> {
     T findBySequenceAndEnableFlag(int sequence, byte enableFlag);
 
     T findBySequenceAndActiveFlagAndEnableFlag(int sequence, byte activeFlag, byte enableFlag);
+
 }

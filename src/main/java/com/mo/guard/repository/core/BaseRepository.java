@@ -8,11 +8,13 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.util.List;
 
 @NoRepositoryBean
-public interface BaseRepository<T extends Object> extends CrudRepository<T, String> {
+public interface BaseRepository<T> extends CrudRepository<T, String> {
 
-    // common
+    // common - list
 
     List<T> findAllByEnableFlag(byte enableFlag);
+
+    // common - page
 
     /*Page<T> findAllByEnableFlag(byte enableFlag, Pageable pageable);*/
 

@@ -22,10 +22,10 @@ public class RelationAuthResource {
     @EmbeddedId
     public RelationAuthResourceId pk;
 
-    @Column(name = "auth_sq")
+    @Column(name = "auth_sq", insertable = false, updatable = false)
     public int authSequence;
 
-    @Column(name = "resource_sq")
+    @Column(name = "resource_sq", insertable = false, updatable = false)
     public int resourceSequence;
 
     @Column(name = "disp_ord")
