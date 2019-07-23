@@ -11,11 +11,11 @@ import java.util.List;
 @Repository
 public interface RelationAuthResourceRepository extends JpaRepository<RelationAuthResource, String>, RelationRepository<RelationAuthResource, RelationAuthResourceId> {
 
-    /*public List<RelationAuthResource> findByAuthSequenceAndEnableFlag(
+    /*public List<RelationAuthResource> findBy(
             int authSequence,
-            byte enableFlag);
+            byte enableFlag);*/
 
-    public List<RelationAuthResource> findByAuthSequenceAndResourceSequenceInAndEnableFlag(
+    /*public List<RelationAuthResource> findByAuthSequenceAndResourceSequenceInAndEnableFlag(
             int authSequence,
             List<Integer> resourceSequences,
             byte enableFlag);*/

@@ -24,11 +24,13 @@ public class RelationAuthResource {
     @EmbeddedId
     public RelationAuthResourceId key;
 
-//    @Column(name = "auth_sq", insertable = false, updatable = false)
-//    public int authSequence;
-//
-//    @Column(name = "resource_sq", insertable = false, updatable = false)
-//    public int resourceSequence;
+     /*@Column(name = "auth_sq", insertable = false, updatable = false)*/
+     @MapsId(value = "authSequence")
+     public int authSequence;
+
+     /*@Column(name = "resource_sq", insertable = false, updatable = false)*/
+     @MapsId(value = "resourceSequence")
+     public int resourceSequence;
 
     @Column(name = "disp_ord")
     public Integer displayOrder;

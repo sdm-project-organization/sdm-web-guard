@@ -67,6 +67,14 @@ public class AuthServiceImpl implements AuthService {
     /*@Override*/
     public void updateResourcesBySequence(int authSequence, List<Integer> listOfNewResourceId) throws Exception {
 
+        /**
+         * [origin] 1, 2, 3 / [target] 2, 4
+         *
+         * delete 1, 3
+         * create 4
+         * stayon 2
+         * */
+
         /*List<RelationAuthResource> listOfRelationAuthResource = relationAuthResourceRepository
                 .findByAuthSequenceAndEnableFlag(authSequence, EnableFlag.Y.getValue());*/
 
