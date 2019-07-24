@@ -9,22 +9,21 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-/*@Embeddable*/
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RelationAuthResourceId implements Serializable {
+public class RelationRoleAuthId implements Serializable {
+
+    @EqualsAndHashCode.Include
+    @Id
+    @Column(name = "role_sq")
+    int roleSequence;
 
     @EqualsAndHashCode.Include
     @Id
     @Column(name = "auth_sq")
     int authSequence;
-
-    @EqualsAndHashCode.Include
-    @Id
-    @Column(name = "resource_sq")
-    int resourceSequence;
 
     /*@Override
     public boolean equals(Object o) {

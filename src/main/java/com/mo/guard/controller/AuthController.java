@@ -71,7 +71,7 @@ public class AuthController {
             /*@Validated @RequestBody AuthResource authResource) throws Exception {*/
             @Validated @RequestBody List<Integer> listOfResourceId) throws Exception {
         /*authService.updateBySequence(authId, authResource.toUpdate().toEntity());*/
-        authService.updateResourcesBySequence(authId, listOfResourceId);
+        authService.updateRelationWithResourcesBySequence(authId, listOfResourceId);
         return null;
     }
 

@@ -1,7 +1,6 @@
 package com.mo.guard.service;
 
 import com.mo.guard.constant.EnableFlag;
-import com.mo.guard.model.embedded.RelationAuthResourceId;
 import com.mo.guard.model.table.Auth;
 import com.mo.guard.model.table.relation.RelationAuthResource;
 import com.mo.guard.repository.AuthRepository;
@@ -26,7 +25,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public List<Auth> findAllByEnableFlag(byte enableFlag) {
-        /*return authRepository.findAll();*/
         return authRepository.findAllByEnableFlag(enableFlag);
     }
 
@@ -56,61 +54,49 @@ public class AuthServiceImpl implements AuthService {
     }
 
     /**
-     * [DB] In Query vs [WEB] Server Logic
+     * updateRelationWithResourcesBySequence - `Auth` 와 `Resource` 간의 관계 관리
      *
-     * [origin] 1, 2, 3 / [target] 2, 4
-     * delete 1, 3
-     * create 4
-     * stayon 2
-     *
+     * @param authSequence - Auth Id
+     * @param listOfNewResourceId - 새로운 Resource Id 목록
      * */
-    /*@Override*/
-    public void updateResourcesBySequence(int authSequence, List<Integer> listOfNewResourceId) throws Exception {
+    public void updateRelationWithResourcesBySequence(int authSequence, List<Integer> listOfNewResourceId) throws Exception {
+        Auth auth = authRepository.findBySequenceAndEnableFlag(authSequence, EnableFlag.Y.getValue());
+        List<Integer> listOfOriginResourceId;
+        List<Integer> listOfNoDuplicate = listOfNewResourceId;
+        List<RelationAuthResource> result = new ArrayList<>();
 
-        /**
-         * [origin] 1, 2, 3 / [target] 2, 4
-         *
-         * delete 1, 3
-         * create 4
-         * stayon 2
-         * */
-
-        /*List<RelationAuthResource> listOfRelationAuthResource = relationAuthResourceRepository
-                .findByAuthSequenceAndEnableFlag(authSequence, EnableFlag.Y.getValue());*/
+        if(auth == null) {
+            throw new Exception("not found auth");
+        }
 
         // remove & select
-        /*List<Integer> listOfOriginResourceId = listOfRelationAuthResource.stream().filter(((resource)->{
-            if(listOfNewResourceId.indexOf(resource.getResourceSequence()) == -1) {
-                resource.setEnableFlag(EnableFlag.N.getValue());
-                return false;
-            } else {
-                return true;
-            }
-        })).mapToInt((resource)->{
-            return resource.getResourceSequence();
-        }).boxed().collect(Collectors.toList());
+        if(auth.getRelationResources().size() > 0) {
+            listOfOriginResourceId = auth.getRelationResources().stream().filter(((originResource)->{
+                if(listOfNewResourceId.indexOf(originResource.getResourceSequence()) == -1) {
+                    originResource.setEnableFlag(EnableFlag.N.getValue()); // remove
+                    return false; // non-select
+                } else {
+                    return true; // select
+                }
+            })).mapToInt((resource)-> resource.getResourceSequence())
+                    .boxed().collect(Collectors.toList());
 
-        // Validate
-        List<Integer> listOfNoDuplicate = ArrayUtil.findNoDuplicateInArrays(
-                listOfNewResourceId,
-                listOfOriginResourceId);
+            // Validate
+            listOfNoDuplicate = ArrayUtil.findNoDuplicateInArrays(
+                    listOfNewResourceId/*create+stay-id*/, listOfOriginResourceId/*stay-id*/);
+        }
 
-        // Intert
-        List<RelationAuthResource> result = new ArrayList<>();
-        listOfNoDuplicate.forEach((a) -> {
-            RelationAuthResource relationAuthResource = new RelationAuthResource();
+        // Insert
+        if(listOfNoDuplicate.size() > 0) {
+            listOfNoDuplicate.forEach((resourceSequence) -> {
+                RelationAuthResource relationAuthResource = new RelationAuthResource();
+                relationAuthResource.setAuthSequence(authSequence);
+                relationAuthResource.setResourceSequence(resourceSequence);
+                result.add(relationAuthResource);
+            });
+            relationAuthResourceRepository.saveAll(result);
+        }
 
-            // create pk
-            RelationAuthResourceId relationAuthResourceId = new RelationAuthResourceId(authSequence, a);
-            relationAuthResource.setPk(relationAuthResourceId);
-
-            relationAuthResource.setAuthSequence(authSequence);
-            relationAuthResource.setResourceSequence(a);
-            relationAuthResourceRepository.saveAndFlush(relationAuthResource);
-            result.add(relationAuthResource);
-        });*/
-
-        /*relationAuthResourceRepository.saveAll(result);*/
         relationAuthResourceRepository.flush();
     }
 

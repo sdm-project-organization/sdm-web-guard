@@ -36,11 +36,12 @@ public class RelationAuthResourceController {
             UriComponentsBuilder uriComponentsBuilder) throws Exception {
         RelationAuthResource relationAuthResource = relationAuthResourceService.save(relationAuthResourceResource);
 
-        URI resourceUri = MvcUriComponentsBuilder
+        /*URI resourceUri = MvcUriComponentsBuilder
                 .relativeTo(uriComponentsBuilder)
                 .withMethodCall(on(RelationAuthResourceController.class).getRelationAuthResource(relationAuthResource.getKey().toString()))
                 .build().encode().toUri();
-        return ResponseEntity.created(resourceUri).build();
+        return ResponseEntity.created(resourceUri).build();*/
+        return null;
     }
 
     // [GET] /relation/auth/resource/{id}

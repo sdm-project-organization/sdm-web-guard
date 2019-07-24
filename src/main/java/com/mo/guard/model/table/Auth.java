@@ -2,7 +2,9 @@ package com.mo.guard.model.table;
 
 import com.mo.guard.constant.ActiveFlag;
 import com.mo.guard.constant.EnableFlag;
+import com.mo.guard.model.table.relation.RelationAuthResource;
 import lombok.Data;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -11,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "G_AUTH_TB")
@@ -21,6 +24,11 @@ public class Auth {
     @Id
     @Column(name = "auth_sq")
     public int sequence;
+
+    @OneToMany
+    @JoinColumn(name = "auth_sq")
+    @Where(clause = "enable_fl = 1")
+    public List<RelationAuthResource> relationResources;
 
     @Column(name = "disp_ord")
     public Integer displayOrder;

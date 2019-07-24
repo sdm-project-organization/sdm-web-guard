@@ -3,6 +3,8 @@ package com.mo.guard.model.table.relation;
 import com.mo.guard.constant.ActiveFlag;
 import com.mo.guard.constant.EnableFlag;
 import com.mo.guard.model.embedded.RelationAuthResourceId;
+import com.mo.guard.model.table.Auth;
+import com.mo.guard.model.table.Resource;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedBy;
@@ -17,20 +19,22 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "G_R_AUTH_RESOURCE_TB")
 @EntityListeners(value = {AuditingEntityListener.class})
+@IdClass(RelationAuthResourceId.class)
 @Data
 @NoArgsConstructor
 public class RelationAuthResource {
 
-    @EmbeddedId
-    public RelationAuthResourceId key;
+    @Id
+    @Column(name = "auth_sq")
+    public int authSequence;
 
-     /*@Column(name = "auth_sq", insertable = false, updatable = false)*/
-     @MapsId(value = "authSequence")
-     public int authSequence;
-
-     /*@Column(name = "resource_sq", insertable = false, updatable = false)*/
-     @MapsId(value = "resourceSequence")
+     @Id
+     @Column(name = "resource_sq")
      public int resourceSequence;
+
+    @ManyToOne
+    @JoinColumn(name = "resource_sq", insertable = false, updatable = false)
+    public Resource resource;
 
     @Column(name = "disp_ord")
     public Integer displayOrder;

@@ -2,8 +2,8 @@ package com.mo.guard.model.table.relation;
 
 import com.mo.guard.constant.ActiveFlag;
 import com.mo.guard.constant.EnableFlag;
+import com.mo.guard.model.embedded.RelationUserRoleId;
 import com.mo.guard.model.table.Role;
-import com.mo.guard.model.table.User;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -16,20 +16,21 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "G_R_User_Role_TB")
+@IdClass(RelationUserRoleId.class)
 @EntityListeners(value = {AuditingEntityListener.class})
 @Data
 public class RelationUserRole {
 
     @Id
-    @Column(name = "user_role_sq")
-    public String userRoleSequence;
+    @Column(name = "user_sq")
+    public int userSequence;
 
-    @OneToOne
-    @JoinColumn(name = "user_sq")
-    public User user;
+    @Id
+    @Column(name = "role_sq")
+    public int roleSequence;
 
     @ManyToOne
-    @JoinColumn(name = "role_sq")
+    @JoinColumn(name = "role_sq", insertable = false, updatable = false)
     public Role role;
 
     @Column(name = "disp_ord")
@@ -40,6 +41,9 @@ public class RelationUserRole {
 
     @Column(name = "`desc`")
     public String desc;
+
+    @Column(name = "meta")
+    public String meta;
 
     @Column(name = "active_fl", nullable = false)
     public Byte activeFlag = ActiveFlag.Y.getValue();

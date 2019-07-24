@@ -31,10 +31,11 @@ public class RelationAuthResourceServiceImpl implements RelationAuthResourceServ
 
     @Override
     public RelationAuthResource findByPkAndEnableFlag(String id, byte enableFlag) {
-        RelationAuthResourceId relationAuthResourceId = new RelationAuthResourceId(
+        /*RelationAuthResourceId relationAuthResourceId = new RelationAuthResourceId(
                 parseInt(id.split("-")[0]),
                 parseInt(id.split("-")[1]));
-        return relationAuthResourceRepository.findByKeyAndEnableFlag(relationAuthResourceId, enableFlag);
+        return relationAuthResourceRepository.findByKeyAndEnableFlag(relationAuthResourceId, enableFlag);*/
+        return null;
     }
 
     @Override
