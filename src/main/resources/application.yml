@@ -45,14 +45,14 @@ security:
     resource:
       user-info-uri: http://${env.host.dev}:8090/user
 
-#eureka:
-#  instance:
-#    hostname: ${env.host.dev}
-#  client:
-#    registerWithEureka: true
-#    fetchRegistry: true
-#    serviceUrl:
-#      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+eureka:
+  instance:
+    hostname: ${env.host.local}
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
 
 ---
 
