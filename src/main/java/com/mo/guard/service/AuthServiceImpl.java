@@ -70,15 +70,15 @@ public class AuthServiceImpl implements AuthService {
         }
 
         // remove & select
-        if(auth.getRelationResources().size() > 0) {
-            listOfOriginResourceId = auth.getRelationResources().stream().filter(((originResource)->{
-                if(listOfNewResourceId.indexOf(originResource.getResourceSequence()) == -1) {
+        if(auth.getResources().size() > 0) {
+            listOfOriginResourceId = auth.getResources().stream().filter(((originResource)->{
+                if(listOfNewResourceId.indexOf(originResource.getSequence()) == -1) {
                     originResource.setEnableFlag(EnableFlag.N.getValue()); // remove
                     return false; // non-select
                 } else {
                     return true; // select
                 }
-            })).mapToInt((resource)-> resource.getResourceSequence())
+            })).mapToInt((resource)-> resource.getSequence())
                     .boxed().collect(Collectors.toList());
 
             // Validate

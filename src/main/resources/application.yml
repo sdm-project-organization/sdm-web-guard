@@ -5,6 +5,12 @@ server:
 signing:
  key: "345345fsdgsf5345"
 
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: DEBUG
+    com.mo: DEBUG
+
 env:
   host:
     local: localhost
@@ -40,10 +46,10 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-security:
-  oauth2:
-    resource:
-      user-info-uri: http://${env.host.dev}:8090/user
+#security:
+#  oauth2:
+#    resource:
+#      user-info-uri: http://${env.host.local}:8090/user
 
 eureka:
   instance:
@@ -77,10 +83,10 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-security:
-  oauth2:
-    resource:
-      user-info-uri: http://${env.host.dev}:8090/user
+#security:
+#  oauth2:
+#    resource:
+#      user-info-uri: http://${env.host.dev}:8090/user
 
 eureka:
   instance:

@@ -34,14 +34,13 @@
             <version>2.0.2.RELEASE</version>
         </dependency>
 
+        <!-- Spring Cloud : Security -->
         <!-- 추가만으로 서버내에 권한이 설정 -->
-
-        <!--&lt;!&ndash; Spring Cloud : Security &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-security</artifactId>-->
-            <!--<version>2.1.2.RELEASE</version>-->
-        <!--</dependency>-->
+        <!--<dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-security</artifactId>
+            <version>2.1.2.RELEASE</version>
+        </dependency>-->
 
         <!--&lt;!&ndash; Spring Security : Oauth2 &ndash;&gt;-->
         <!--<dependency>-->
@@ -50,11 +49,11 @@
             <!--<version>2.2.2.RELEASE</version>-->
         <!--</dependency>-->
 
-        <!--&lt;!&ndash; Spring Security : Oauth2 Client &ndash;&gt;-->
+        <!-- Spring Security : Oauth2 Client -->
         <!--<dependency>-->
-            <!--<groupId>org.springframework.security</groupId>-->
+            <!--<groupId>org.springframework.security.oauth</groupId>-->
             <!--<artifactId>spring-security-oauth2-client</artifactId>-->
-            <!--<version>5.1.5.RELEASE</version>-->
+            <!--<version></version>-->
         <!--</dependency>-->
 
         <!-- JAXB -->

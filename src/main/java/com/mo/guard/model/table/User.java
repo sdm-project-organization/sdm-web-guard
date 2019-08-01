@@ -2,7 +2,10 @@ package com.mo.guard.model.table;
 
 import com.mo.guard.constant.ActiveFlag;
 import com.mo.guard.constant.EnableFlag;
+import com.mo.guard.model.table.relation.RelationRoleAuth;
+import com.mo.guard.model.table.relation.RelationUserRole;
 import lombok.Data;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -11,6 +14,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "G_USER_TB")
@@ -22,8 +26,20 @@ public class User {
     @Column(name = "user_sq")
     public int sequence;
 
-    @Column(name = "user_id")
-    public String userId;
+    /*@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_sq")
+    @Where(clause = "enable_fl = 1")
+    public List<RelationUserRole> relationRoles;*/
+
+    @ManyToMany
+    @JoinTable(
+            name = "G_R_USER_ROLE_TB",
+            joinColumns = @JoinColumn(name = "user_sq"),
+            inverseJoinColumns = @JoinColumn(name = "role_sq"))
+    public List<Role> roles;
+
+    @Column(name = "username")
+    public String username;
 
     @Column(name = "password")
     public String password;

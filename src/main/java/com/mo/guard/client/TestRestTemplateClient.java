@@ -19,7 +19,7 @@ public class TestRestTemplateClient {
     OAuth2RestTemplate restTemplate;*/
 
     /*public TestController.Item getItem(String itemId) {
-        // logger.debug("In Guard Service.getItem : {}", UserContext.getCorrelationId());
+        // logger.info("In Guard Service.getItem : {}", UserContext.getCorrelationId());
 
         // 서비스호출은 표준 RestTemplate과 똑같은 방식으로 수행
         ResponseEntity<TestController.Item> restExchange = restTemplate.exchange(

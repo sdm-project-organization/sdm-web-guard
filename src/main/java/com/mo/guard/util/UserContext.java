@@ -14,7 +14,7 @@ public class UserContext {
 
     public String correlationId= new String();
     public String authToken= new String();
-    public String userId = new String();
+    public String username = new String();
     public String orgId = new String();
 
 }

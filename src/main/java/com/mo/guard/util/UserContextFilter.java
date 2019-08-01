@@ -26,10 +26,10 @@ public class UserContextFilter implements Filter {
 
         // 헤더에서 상관관계 ID를 검색하여 `UserContext` 클래스에 설정
         UserContextHolder.getContext().setCorrelationId(httpServletRequest.getHeader(UserContext.CORRELATION_ID));
-        UserContextHolder.getContext().setUserId(httpServletRequest.getHeader(UserContext.USER_ID));
+        UserContextHolder.getContext().setUsername(httpServletRequest.getHeader(UserContext.USER_ID));
         UserContextHolder.getContext().setAuthToken(httpServletRequest.getHeader(UserContext.AUTH_TOKEN));
         UserContextHolder.getContext().setOrgId(httpServletRequest.getHeader(UserContext.ORG_ID));
-        logger.debug("Special Routes Service Incoming Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
+        logger.info("Special Routes Service Incoming Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
 
         filterChain.doFilter(httpServletRequest, servletResponse);
     }

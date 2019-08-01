@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService {
      * 로그인
      * */
     /*@Override
-    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        User user = this.findByUserIdAndEnableFlag(userId, EnableFlag.Y.getValue());
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = this.findByUsernameAndEnableFlag(username, EnableFlag.Y.getValue());
         return new GuardUserDetails(user, authoritiesService.getAuthorities(user));
     }*/
 
@@ -51,10 +51,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.findBySequence(sequence);
     }
 
-    // TODO
     @Override
-    public User findByUserIdAndEnableFlag(String userId, byte enableFlag) {
-        return null;
+    public User findByUsernameAndEnableFlag(String username, byte enableFlag) {
+        return userRepository.findByUsernameAndEnableFlag(username, enableFlag);
     }
 
     @Override
@@ -65,7 +64,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateBySequence(int sequence, User targetUser) {
         User originUser = findBySequence(sequence);
-        originUser.setUserId(targetUser.getUserId());
+        originUser.setUsername(targetUser.getUsername());
         originUser.setPassword(targetUser.getPassword());
         originUser.setName(targetUser.getName());
         originUser.setEmail(targetUser.getEmail());

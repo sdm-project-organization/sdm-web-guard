@@ -15,7 +15,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "G_R_User_Role_TB")
+@Table(name = "G_R_USER_ROLE_TB")
 @IdClass(RelationUserRoleId.class)
 @EntityListeners(value = {AuditingEntityListener.class})
 @Data

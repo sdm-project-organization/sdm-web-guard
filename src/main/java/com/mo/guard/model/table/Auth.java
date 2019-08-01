@@ -25,10 +25,17 @@ public class Auth {
     @Column(name = "auth_sq")
     public int sequence;
 
-    @OneToMany
+    /*@OneToMany
     @JoinColumn(name = "auth_sq")
     @Where(clause = "enable_fl = 1")
-    public List<RelationAuthResource> relationResources;
+    public List<RelationAuthResource> relationResources;*/
+
+    @ManyToMany
+    @JoinTable(
+            name = "G_R_AUTH_RESOURCE_TB",
+            joinColumns = @JoinColumn(name = "auth_sq"),
+            inverseJoinColumns = @JoinColumn(name = "resource_sq"))
+    public List<Resource> resources;
 
     @Column(name = "disp_ord")
     public Integer displayOrder;

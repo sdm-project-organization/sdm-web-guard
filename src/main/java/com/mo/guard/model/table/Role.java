@@ -26,10 +26,17 @@ public class Role {
     @Column(name = "role_sq")
     public int sequence;
 
-    @OneToMany
+    /*@OneToMany
     @JoinColumn(name = "role_sq")
     @Where(clause = "enable_fl = 1")
-    public List<RelationRoleAuth> relationAuths;
+    public List<RelationRoleAuth> relationAuths;*/
+
+    @ManyToMany
+    @JoinTable(
+            name = "G_R_ROLE_AUTH_TB",
+            joinColumns = @JoinColumn(name = "role_sq"),
+            inverseJoinColumns = @JoinColumn(name = "auth_sq"))
+    public List<Auth> auths;
 
     @Column(name = "expired_period")
     public int expiredPeriod;

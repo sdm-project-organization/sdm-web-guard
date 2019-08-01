@@ -12,7 +12,7 @@ public class UserResource extends CommonResource<User, UserResource> implements 
     private Integer serviceSequence;
 
     @NotNull
-    private String userId;
+    private String username;
 
     @NotNull
     private String password;

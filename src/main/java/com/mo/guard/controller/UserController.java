@@ -66,28 +66,35 @@ public class UserController {
         return ResponseEntity.created(resourceUri).build();
     }
 
-    // [GET] /users/{userId}
-    @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
-    /*public AppResource getApp(@PathVariable int userId) throws Exception {*/
-    public User getUser(@PathVariable int userId) throws Exception {
-        return userService.findBySequence(userId);
+    // [GET] /users/{userSeq}
+    @RequestMapping(path = "/{userSeq}", method = RequestMethod.GET)
+    /*public AppResource getApp(@PathVariable int userSeq) throws Exception {*/
+    public User getUser(@PathVariable int userSeq) throws Exception {
+        return userService.findBySequence(userSeq);
     }
 
-    // [PUT] /users/{userId}
-    @RequestMapping(path = "/{userId}", method = RequestMethod.PUT)
+    // [GET] /users/username/{username}
+    @RequestMapping(path = "/username/{username}", method = RequestMethod.GET)
+    /*public AppResource getApp(@PathVariable int userSeq) throws Exception {*/
+    public User getUserByUsername(@PathVariable String username) throws Exception {
+        return userService.findByUsernameAndEnableFlag(username, EnableFlag.Y.getValue());
+    }
+
+    // [PUT] /users/{userSeq}
+    @RequestMapping(path = "/{userSeq}", method = RequestMethod.PUT)
     public ResponseEntity<Void> updateApp(
-            @PathVariable int userId,
+            @PathVariable int userSeq,
             /*@Validated @RequestBody UserResource userResource) throws Exception {*/
             @Validated @RequestBody User userResource) throws Exception {
         /*appService.updateBySequence(appId, appResource.toUpdate().toEntity());*/
-        userService.updateBySequence(userId, userResource);
+        userService.updateBySequence(userSeq, userResource);
         return null;
     }
 
-    // [DELETE] /users/{userId}
-    @RequestMapping(path = "/{userId}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteUser(@PathVariable int userId) {
-        userService.unenable(userId);
+    // [DELETE] /users/{userSeq}
+    @RequestMapping(path = "/{userSeq}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteUser(@PathVariable int userSeq) {
+        userService.unenable(userSeq);
         return null;
     }
 
