@@ -3,6 +3,7 @@ package com.mo.guard.service;
 
 import com.mo.guard.constant.EnableFlag;
 import com.mo.guard.model.table.App;
+import com.mo.guard.model.table.Role;
 import com.mo.guard.model.table.User;
 import com.mo.guard.repository.UserRepository;
 import com.mo.guard.service.core.UserService;
@@ -43,17 +44,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAllByEnableFlag(byte enableFlag) {
         /*return appRepository.findAll();*/
-        return userRepository.findAllByEnableFlag(enableFlag);
+        List<User> users = userRepository.findAllByEnableFlag(enableFlag);
+        return users;
     }
 
     @Override
     public User findBySequence(int sequence) {
-        return userRepository.findBySequence(sequence);
+        User user = userRepository.findBySequence(sequence);
+        return user;
     }
 
     @Override
     public User findByUsernameAndEnableFlag(String username, byte enableFlag) {
-        return userRepository.findByUsernameAndEnableFlag(username, enableFlag);
+        User user = userRepository.findByUsernameAndEnableFlag(username, enableFlag);
+        return user;
     }
 
     @Override

@@ -12,6 +12,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 
@@ -31,10 +33,8 @@ public class RoleController {
 
     // [POST] /roles
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> createRole(
-            /*@Validated @RequestBody RoleResource roleResource,*/
-            @Validated @RequestBody Role roleResource,
-            UriComponentsBuilder uriComponentsBuilder) throws Exception {
+    public ResponseEntity<Void> createRole(@Validated @RequestBody Role roleResource,
+                                           UriComponentsBuilder uriComponentsBuilder) throws Exception {
         /*Role role = roleService.save(roleResource.toInsert().toEntity());*/
         Role role = roleService.save(roleResource);
 
@@ -45,29 +45,32 @@ public class RoleController {
         return ResponseEntity.created(resourceUri).build();
     }
 
-    // [GET] /roles/{roleId}
-    @RequestMapping(path = "/{roleId}", method = RequestMethod.GET)
-    /*public RoleResource getRole(@PathVariable int roleId) throws Exception {*/
-    public Role getRole(@PathVariable int roleId) throws Exception {
-        /*return roleService.findBySequence(roleId);*/
-        return roleService.findBySequenceAndEnableFlag(roleId, EnableFlag.Y.getValue());
+    // [GET] /roles/{roleSeq}
+    @RequestMapping(path = "/{roleSeq}", method = RequestMethod.GET)
+    /*public RoleResource getRole(@PathVariable int roleSeq) throws Exception {*/
+    public Role getRole(@PathVariable int roleSeq) throws Exception {
+        /*return roleService.findBySequence(roleSeq);*/
+        return roleService.findBySequenceAndEnableFlag(roleSeq, EnableFlag.Y.getValue());
     }
 
-    // [PUT] /roles/{roleId}
-    @RequestMapping(path = "/{roleId}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> updateRole(
-            @PathVariable int roleId,
-            /*@Validated @RequestBody RoleResource roleResource) throws Exception {*/
-            @Validated @RequestBody Role roleResource) throws Exception {
-        /*roleService.updateBySequence(roleId, roleResource.toUpdate().toEntity());*/
-        roleService.updateBySequence(roleId, roleResource);
+    // [GET] /roles/organizationname/{organizationName}
+    @RequestMapping(path = "/organizationname/{organizationName}", method = RequestMethod.GET)
+    public Map<String, Set<String>> getRole(@PathVariable String organizationName) throws Exception {
+        return roleService.findAllByOrganizationName(organizationName);
+    }
+
+    // [PUT] /roles/{roleSeq}
+    @RequestMapping(path = "/{roleSeq}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> updateRole(@PathVariable int roleSeq,
+                                           @Validated @RequestBody Role roleResource) throws Exception {
+        roleService.updateBySequence(roleSeq, roleResource);
         return null;
     }
 
-    // [DELETE] /roles/{roleId}
-    @RequestMapping(path = "/{roleId}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteRole(@PathVariable int roleId) {
-        roleService.unenable(roleId);
+    // [DELETE] /roles/{roleSeq}
+    @RequestMapping(path = "/{roleSeq}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteRole(@PathVariable int roleSeq) {
+        roleService.unenable(roleSeq);
         return null;
     }
 

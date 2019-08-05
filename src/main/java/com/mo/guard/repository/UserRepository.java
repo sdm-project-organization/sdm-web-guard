@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, String>, DummyRepository<User> {
 
+
     User findByUsernameAndEnableFlag(String username, byte enableFlag);
 
 }

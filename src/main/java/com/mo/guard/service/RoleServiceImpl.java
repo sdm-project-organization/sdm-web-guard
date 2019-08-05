@@ -7,7 +7,7 @@ import com.mo.guard.service.core.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -17,13 +17,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Role> findAllByEnableFlag(byte enableFlag) {
-        /*return roleRepository.findAll();*/
         return roleRepository.findAllByEnableFlag(enableFlag);
-    }
-
-    @Override
-    public Role save(Role obj) {
-        return roleRepository.save(obj);
     }
 
     @Override
@@ -34,6 +28,32 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role findBySequenceAndEnableFlag(int sequence, byte enableFlag) {
         return roleRepository.findBySequenceAndEnableFlag(sequence, enableFlag);
+    }
+
+    /**
+     * findAllByOrganizationName 조직이름으로 조회하기
+     *
+     * @param organizationName - 조직이름
+     * @return Map - RoleName : Set of ResourceName
+     * */
+    public Map<String, Set<String>> findAllByOrganizationName(String organizationName) {
+        Map<String, Set<String>> result = new HashMap<>();
+        List<Role> roles = roleRepository.findAllByEnableFlag(EnableFlag.Y.getValue());
+        roles.stream().forEach(role -> {
+            Set<String> setOfResource = new HashSet<>();
+            role.getAuths().stream().forEach((auth -> {
+                auth.getResources().stream().forEach(resource -> {
+                    setOfResource.add(resource.getPath());
+                });
+            }));
+            result.put(role.getDisplayName(), setOfResource);
+        });
+        return result;
+    }
+
+    @Override
+    public Role save(Role obj) {
+        return roleRepository.save(obj);
     }
 
     @Override

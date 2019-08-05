@@ -78,7 +78,7 @@ public class AuthServiceImpl implements AuthService {
                 } else {
                     return true; // select
                 }
-            })).mapToInt((resource)-> resource.getSequence())
+            })).mapToInt((resource)-> resource.getSequence()    )
                     .boxed().collect(Collectors.toList());
 
             // Validate
