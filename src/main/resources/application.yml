@@ -1,15 +1,18 @@
-
 server:
   port: 9999
 
 signing:
- key: "345345fsdgsf5345"
+  key: "345345fsdgsf5345"
 
 logging:
   level:
+    com.mo: DEBUG
     com.netflix: WARN
     org.springframework.web: DEBUG
-    com.mo: DEBUG
+    org.hibernate.SQL: DEBUG
+    # org.hibernate.type: TRACE
+    org.hibernate.type.descriptor.sql: TRACE
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
 env:
   host:
@@ -31,18 +34,39 @@ spring:
   profiles: default
   application:
     name: guard
+  # === [H2] ===
   datasource:
-    url: jdbc:mysql://${env.host.dev}:${env.db.dev.port}/${env.db.dev.schema}?verifyServerCertificate=false&useSSL=true
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    platform: h2
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
   jpa:
+    database-platform: H2
     hibernate:
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: create-drop
     properties:
       hibernate:
+        type: trace
         show_sql: true
+        format_sql: true
+        use_sql_comments: true
+    # === [MySQL] ===
+#    datasource:
+#      url: jdbc:mysql://${env.host.dev}:${env.db.dev.port}/${env.db.dev.schema}?verifyServerCertificate=false&useSSL=true
+#      username: root
+#      password: root
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+#    jpa:
+#      hibernate:
+#        naming:
+#          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#      properties:
+#        hibernate:
+#          type: trace
+#          show_sql: true
+#          format_sql: true
+#          use_sql_comments: true
   main:
     allow-bean-definition-overriding: true
 
@@ -77,9 +101,6 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    properties:
-      hibernate:
-        show_sql: true
   main:
     allow-bean-definition-overriding: true
 
