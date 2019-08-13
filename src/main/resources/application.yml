@@ -15,16 +15,26 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
 env:
-  host:
-    local: localhost
-    dev: dev.avocadostudio.xyz
   db:
     local:
+      host: localhost
       port: 3306
       schema: GUARD
+      username: root
+      password: 1234
     dev:
+      host: dev.avocadostudio.xyz
       port: 3306
       schema: GUARD
+      username: root
+      password: root
+  eureka:
+    local:
+      host: localhost
+      port: 8761
+    dev:
+      host: dev.avocadostudio.xyz
+      port: 8761
 
 ---
 
@@ -35,38 +45,40 @@ spring:
   application:
     name: guard
   # === [H2] ===
+  #  datasource:
+  #    platform: h2
+  #    url: jdbc:h2:mem:testdb
+  #    username: sa
+  #    password:
+  #    driver-class-name: org.h2.Driver
+  #  jpa:
+  #    database-platform: H2
+  #    hibernate:
+  #      ddl-auto: create-drop
+  #    properties:
+  #      hibernate:
+  #        type: trace
+  #        show_sql: true
+  #        format_sql: true
+  #        use_sql_comments: true
+  # === [MySQL] ===
   datasource:
-    platform: h2
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://${env.db.local.host}:${env.db.local.port}/${env.db.local.schema}?verifyServerCertificate=false&useSSL=true&serverTimezone=UTC
+    username: ${env.db.local.username}
+    password: ${env.db.local.password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    database-platform: H2
     hibernate:
-      ddl-auto: create-drop
+      # only - local
+      # ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
         type: trace
         show_sql: true
         format_sql: true
         use_sql_comments: true
-    # === [MySQL] ===
-#    datasource:
-#      url: jdbc:mysql://${env.host.dev}:${env.db.dev.port}/${env.db.dev.schema}?verifyServerCertificate=false&useSSL=true
-#      username: root
-#      password: root
-#      driver-class-name: com.mysql.cj.jdbc.Driver
-#    jpa:
-#      hibernate:
-#        naming:
-#          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-#      properties:
-#        hibernate:
-#          type: trace
-#          show_sql: true
-#          format_sql: true
-#          use_sql_comments: true
   main:
     allow-bean-definition-overriding: true
 
@@ -77,12 +89,12 @@ spring:
 
 eureka:
   instance:
-    hostname: ${env.host.local}
+    hostname: ${env.eureka.local.host}
   client:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+      defaultZone: http://${eureka.instance.hostname}:${env.eureka.local.port}/eureka/
 
 ---
 
@@ -93,9 +105,9 @@ spring:
   application:
     name: guard
   datasource:
-    url: jdbc:mysql://${env.host.dev}:${env.db.dev.port}/${env.db.dev.schema}?verifyServerCertificate=false&useSSL=true
-    username: root
-    password: root
+    url: jdbc:mysql://${env.db.dev.host}:${env.db.dev.port}/${env.db.dev.schema}?verifyServerCertificate=false&useSSL=true&serverTimezone=UTC
+    username: ${env.db.dev.username}
+    password: ${env.db.dev.password}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -111,9 +123,9 @@ spring:
 
 eureka:
   instance:
-    hostname: ${env.host.dev}
+    hostname: ${env.eureka.dev.host}
   client:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+      defaultZone: http://${eureka.instance.hostname}:${env.eureka.dev.port}/eureka/
