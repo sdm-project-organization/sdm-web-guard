@@ -27,7 +27,7 @@ public class GuardApplication extends SpringBootServletInitializer {
     }
 
     // RestTemplate 객체가 리본을 사용할 것을 나타냄
-    @LoadBalanced
+    /*@LoadBalanced
     @Bean
     public RestTemplate getRestTemplate(){
         RestTemplate template = new RestTemplate();
@@ -40,7 +40,7 @@ public class GuardApplication extends SpringBootServletInitializer {
             template.setInterceptors(interceptors);
         }
         return template;
-    }
+    }*/
 
     /*@Bean
     public Filter userContextFilter() {

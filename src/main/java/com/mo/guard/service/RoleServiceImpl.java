@@ -1,5 +1,6 @@
 package com.mo.guard.service;
 
+import com.mo.guard.builder.RequestPathBuilder;
 import com.mo.guard.constant.EnableFlag;
 import com.mo.guard.model.table.Role;
 import com.mo.guard.repository.RoleRepository;
@@ -14,6 +15,13 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    RequestPathBuilder requestPathBuilder;
+
+    public int countBySequenceIn(List<Integer> listOfRoleId) {
+        return roleRepository.countBySequenceIn(listOfRoleId);
+    }
 
     @Override
     public List<Role> findAllByEnableFlag(byte enableFlag) {
@@ -31,24 +39,38 @@ public class RoleServiceImpl implements RoleService {
     }
 
     /**
-     * findAllByOrganizationName 조직이름으로 조회하기
+     * TODO renaming
+     * findAllByOrgName - 조직이름으로 Caching Resource 조회하기
      *
-     * @param organizationName - 조직이름
+     * @param orgName - 조직이름
      * @return Map - RoleName : Set of ResourceName
      * */
-    public Map<String, Set<String>> findAllByOrganizationName(String organizationName) {
-        Map<String, Set<String>> result = new HashMap<>();
+    public Map<String, Object> findAllByOrgName(String orgName) {
+        // TODO organ-name 적용예정
         List<Role> roles = roleRepository.findAllByEnableFlag(EnableFlag.Y.getValue());
+        Map<String, Object> result = new TreeMap<>();
+
         roles.stream().forEach(role -> {
-            Set<String> setOfResource = new HashSet<>();
             role.getAuths().stream().forEach((auth -> {
+                String roleName = role.getDisplayName();
                 auth.getResources().stream().forEach(resource -> {
-                    setOfResource.add(resource.getPath());
+                    String method = resource.getHttpMethod();
+                    String path = resource.getHttpPath();
+                    requestPathBuilder.build(result, method, path, roleName);
                 });
             }));
-            result.put(role.getDisplayName(), setOfResource);
         });
         return result;
+    }
+
+    /**
+     * findAllBySequenceIn
+     *
+     * @param listOfRoleId
+     * */
+    public List<Role> findAllBySequenceIn(List<Integer> listOfRoleId) {
+        List<Role> roles = roleRepository.findAllBySequenceIn(listOfRoleId);
+        return roles;
     }
 
     @Override

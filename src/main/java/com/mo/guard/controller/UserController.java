@@ -28,11 +28,6 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
-    /*@RequestMapping(path = "/login", method = RequestMethod.POST)
-    public ResponseEntity login(UserResource user) {
-        return null;
-    }*/
-
     // [GET] /users
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
@@ -82,7 +77,7 @@ public class UserController {
 
     // [PUT] /users/{userSeq}
     @RequestMapping(path = "/{userSeq}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> updateApp(
+    public ResponseEntity<Void> updateBySequence(
             @PathVariable int userSeq,
             /*@Validated @RequestBody UserResource userResource) throws Exception {*/
             @Validated @RequestBody User userResource) throws Exception {
@@ -91,9 +86,19 @@ public class UserController {
         return null;
     }
 
+    // [PUT] /users/{userSeq}/roles
+    @RequestMapping(path = "/{userSeq}/roles", method = RequestMethod.PUT)
+    public ResponseEntity<Void> updateRolesBySequence(
+            @PathVariable int userSeq,
+            @Validated @RequestBody List<Integer> roles) throws Exception {
+        /*appService.updateBySequence(appId, appResource.toUpdate().toEntity());*/
+        userService.updateRolesBySequence(userSeq, roles);
+        return null;
+    }
+
     // [DELETE] /users/{userSeq}
     @RequestMapping(path = "/{userSeq}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteUser(@PathVariable int userSeq) {
+    public ResponseEntity<Void> deleteUser(@PathVariable int userSeq) throws Exception {
         userService.unenable(userSeq);
         return null;
     }

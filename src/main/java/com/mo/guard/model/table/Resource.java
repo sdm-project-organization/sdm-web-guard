@@ -25,8 +25,11 @@ public class Resource {
     @Column(name = "app_sq")
     public int appSequence;
 
-    @Column(name= "path")
-    public String path;
+    @Column(name= "http_method")
+    public String httpMethod;
+
+    @Column(name= "http_path")
+    public String httpPath;
 
     @Column(name = "disp_ord")
     public Integer displayOrder;

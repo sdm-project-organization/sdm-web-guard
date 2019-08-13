@@ -1,0 +1,36 @@
+{
+  "resources": {
+    "getApps": {
+      "method": "GET",
+      "path": "/api/guard/apps"
+    },
+    "getAppById": {
+      "method": "GET",
+      "path": "/api/guard/apps/{appId}"
+    },
+    "saveApp": {
+      "method": "POST",
+      "path": "/api/guard/apps"
+    },
+    "updateApp": {
+      "method": "POST",
+      "path": "/api/guard/apps/{appId}"
+    },
+    "deleteApp": {
+      "method": "DELETE",
+      "path": "/api/guard/apps/{appId}"
+    }
+  },
+  "auths": {
+    "admin": ["getApps", "getAppById", "saveApp", "updateApp", "deleteApp"],
+    "writer": [],
+    "reader": [],
+    "default": []
+  },
+  "roles": {
+    "admin": ["admin"],
+    "techPM": ["admin"],
+    "operator": ["reader"],
+    "visitor":["default"]
+  }
+}

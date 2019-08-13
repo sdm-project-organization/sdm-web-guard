@@ -1,5 +1,8 @@
+
 server:
   port: 9999
+  servlet:
+    context-path: /api/guard
 
 signing:
   key: "345345fsdgsf5345"

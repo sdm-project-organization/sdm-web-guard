@@ -1,4 +1,4 @@
 package com.mo.guard.exception;
 
-public class NotFoundUserException {
+public class NotFoundUserException extends RuntimeException{
 }

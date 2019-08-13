@@ -37,7 +37,8 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public Resource updateBySequence(int sequence, Resource targetResource) {
         Resource originResource = findBySequence(sequence);
-        originResource.setPath(targetResource.getPath());
+        originResource.setHttpPath(targetResource.getHttpPath());
+        originResource.setHttpMethod(targetResource.getHttpMethod());
         originResource.setDisplayName(targetResource.getDisplayName());
         originResource.setDisplayOrder(targetResource.getDisplayOrder());
         originResource.setDesc(targetResource.getDesc());

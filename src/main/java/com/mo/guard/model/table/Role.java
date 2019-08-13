@@ -31,7 +31,7 @@ public class Role {
     @Where(clause = "enable_fl = 1")
     public List<RelationRoleAuth> relationAuths;*/
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "G_R_ROLE_AUTH_TB",
             joinColumns = @JoinColumn(name = "role_sq"),

@@ -30,7 +30,7 @@ public class Auth {
     @Where(clause = "enable_fl = 1")
     public List<RelationAuthResource> relationResources;*/
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "G_R_AUTH_RESOURCE_TB",
             joinColumns = @JoinColumn(name = "auth_sq"),

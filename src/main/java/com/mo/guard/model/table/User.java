@@ -3,6 +3,8 @@ package com.mo.guard.model.table;
 import com.mo.guard.constant.ActiveFlag;
 import com.mo.guard.constant.EnableFlag;
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -20,20 +22,16 @@ import java.util.List;
 public class User {
 
     @Id
+    /*@GeneratedValue(strategy = GenerationType.SEQUENCE)*/
     @Column(name = "user_sq")
     public int sequence;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "G_R_USER_ROLE_TB",
-            joinColumns = @JoinColumn(name = "user_sq"),
-            inverseJoinColumns = @JoinColumn(name = "role_sq"))
+            joinColumns = @JoinColumn(name = "user_sq", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "role_sq", nullable = false))
     public List<Role> roles;
-
-    /*@ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "G_R_USER_ROLE_TB", joinColumns = @JoinColumn(name = "user_sq"))
-    @Column(name="disp_nm")
-    public List<String> roles;*/
 
     @Column(name = "username")
     public String username;

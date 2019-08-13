@@ -13,7 +13,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 
@@ -53,10 +52,10 @@ public class RoleController {
         return roleService.findBySequenceAndEnableFlag(roleSeq, EnableFlag.Y.getValue());
     }
 
-    // [GET] /roles/organizationname/{organizationName}
-    @RequestMapping(path = "/organizationname/{organizationName}", method = RequestMethod.GET)
-    public Map<String, Set<String>> getRole(@PathVariable String organizationName) throws Exception {
-        return roleService.findAllByOrganizationName(organizationName);
+    // [GET] /roles/orgname/{orgName}/restmap
+    @RequestMapping(path = "/orgname/{orgName}/restmap", method = RequestMethod.GET)
+    public Map<String, Object> getRole(@PathVariable String orgName) throws Exception {
+        return roleService.findAllByOrgName(orgName);
     }
 
     // [PUT] /roles/{roleSeq}
