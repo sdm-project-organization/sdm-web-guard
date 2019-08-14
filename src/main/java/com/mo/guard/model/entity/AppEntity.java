@@ -11,6 +11,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "G_APP_TB")
@@ -21,8 +23,14 @@ public class AppEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Throw to MySQL
     @Column(name = "app_sq")
-    /*@GeneratedValue*/
     public int sequence;
+
+    @Column(name = "organ_sq", nullable = false)
+    public int organSequence;
+
+    @ManyToOne
+    @JoinColumn(name = "organ_sq")
+    public OrganEntity organ;
 
     @Column(name = "disp_ord")
     public Integer displayOrder;

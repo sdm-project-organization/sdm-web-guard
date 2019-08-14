@@ -17,6 +17,7 @@ public class Doc {
     public static class DocResource {
         public String method;
         public String path;
+        public String desc;
     }
 
 }

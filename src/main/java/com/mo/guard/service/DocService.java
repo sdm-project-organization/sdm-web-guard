@@ -58,6 +58,7 @@ public class DocService {
                 entityResource.setDisplayName(entry.getKey());
                 entityResource.setHttpMethod(entry.getValue().getMethod());
                 entityResource.setHttpPath(entry.getValue().getPath());
+                entityResource.setDesc(entry.getValue().getDesc());
                 entityResource.setAppSequence(applicationSequence);
                 entityResources.add(entityResource);
             });
@@ -84,14 +85,15 @@ public class DocService {
                 }
                 entityAuths.add(entityAuth);
             });
-
+            // auth save
             authService.saveAll(entityAuths);
         }
-        // auth save
+
 
         // == roles ==
+        List<RoleEntity> entityRoles = new ArrayList<>();
         if (roles != null) {
-            List<RoleEntity> entityRoles = new ArrayList<>();
+
             listOfRole.stream().forEach(entry -> {
                 RoleEntity entityRole = new RoleEntity();
                 entityRole.setDisplayName(entry.getKey());
@@ -109,6 +111,6 @@ public class DocService {
             });
         }
         // role save
-
+        roleService.saveAll(entityRoles);
     }
 }

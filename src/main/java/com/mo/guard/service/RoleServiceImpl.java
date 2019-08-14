@@ -79,6 +79,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public List<RoleEntity> saveAll(List<RoleEntity> roles) {
+        return roleRepository.saveAll(roles);
+    }
+
+    @Override
     public RoleEntity updateBySequence(int sequence, RoleEntity targetRole) {
         RoleEntity originRole = findBySequenceAndEnableFlag(sequence, EnableFlag.Y.getValue());
         originRole.setExpiredPeriod(targetRole.getExpiredPeriod());
@@ -97,4 +102,5 @@ public class RoleServiceImpl implements RoleService {
         roleRepository.flush();
         return role;
     }
+
 }
