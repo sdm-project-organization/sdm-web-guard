@@ -1,9 +1,9 @@
-package com.mo.guard.model.table.relation;
+package com.mo.guard.model.entity.relation;
 
 import com.mo.guard.constant.ActiveFlag;
 import com.mo.guard.constant.EnableFlag;
 import com.mo.guard.model.embedded.RelationUserRoleId;
-import com.mo.guard.model.table.Role;
+import com.mo.guard.model.entity.RoleEntity;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -31,7 +31,7 @@ public class RelationUserRole {
 
     @ManyToOne
     @JoinColumn(name = "role_sq", insertable = false, updatable = false)
-    public Role role;
+    public RoleEntity role;
 
     @Column(name = "disp_ord")
     public Integer displayOrder;

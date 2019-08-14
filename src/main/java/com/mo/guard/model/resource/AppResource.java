@@ -1,8 +1,8 @@
 package com.mo.guard.model.resource;
 
-import com.mo.guard.model.table.App;
+import com.mo.guard.model.entity.AppEntity;
 
-public class AppResource extends CommonResource<App, AppResource>{
+public class AppResource extends CommonResource<AppEntity, AppResource>{
 
 
     @Override
@@ -16,7 +16,7 @@ public class AppResource extends CommonResource<App, AppResource>{
     }
 
     @Override
-    public App toEntity() {
+    public AppEntity toEntity() {
         return null;
     }
 }

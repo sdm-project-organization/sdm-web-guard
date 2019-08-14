@@ -2,10 +2,8 @@ package com.mo.guard.service;
 
 
 import com.mo.guard.constant.EnableFlag;
-import com.mo.guard.model.table.Resource;
+import com.mo.guard.model.entity.ResourceEntity;
 import com.mo.guard.repository.ResourceRepository;
-import com.mo.guard.repository.ResourceRepository;
-import com.mo.guard.service.core.ResourceService;
 import com.mo.guard.service.core.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,24 +17,29 @@ public class ResourceServiceImpl implements ResourceService {
     ResourceRepository resourceRepository;
 
     @Override
-    public List<Resource> findAllByEnableFlag(byte enableFlag) {
+    public List<ResourceEntity> findAllByEnableFlag(byte enableFlag) {
         /*return appRepository.findAll();*/
         return resourceRepository.findAllByEnableFlag(enableFlag);
     }
 
     @Override
-    public Resource findBySequence(int sequence) {
+    public ResourceEntity findBySequence(int sequence) {
         return resourceRepository.findBySequence(sequence);
     }
 
     @Override
-    public Resource save(Resource resource) throws Exception {
+    public ResourceEntity save(ResourceEntity resource) throws RuntimeException {
         return resourceRepository.save(resource);
     }
 
     @Override
-    public Resource updateBySequence(int sequence, Resource targetResource) {
-        Resource originResource = findBySequence(sequence);
+    public List<ResourceEntity> saveAll(List<ResourceEntity> resources) throws RuntimeException {
+        return resourceRepository.saveAll(resources);
+    }
+
+    @Override
+    public ResourceEntity updateBySequence(int sequence, ResourceEntity targetResource) {
+        ResourceEntity originResource = findBySequence(sequence);
         originResource.setHttpPath(targetResource.getHttpPath());
         originResource.setHttpMethod(targetResource.getHttpMethod());
         originResource.setDisplayName(targetResource.getDisplayName());
@@ -47,8 +50,8 @@ public class ResourceServiceImpl implements ResourceService {
         return originResource;
     }
     @Override
-    public Resource unenable(int sequence) {
-        Resource resource = findBySequence(sequence);
+    public ResourceEntity unenable(int sequence) {
+        ResourceEntity resource = findBySequence(sequence);
         resource.setEnableFlag(EnableFlag.N.getValue());
         resourceRepository.flush();
         return resource;

@@ -1,7 +1,7 @@
 package com.mo.guard.controller;
 
 import com.mo.guard.constant.EnableFlag;
-import com.mo.guard.model.table.Auth;
+import com.mo.guard.model.entity.AuthEntity;
 import com.mo.guard.service.AuthServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class AuthController {
     // [GET] /auths
     @RequestMapping(method = RequestMethod.GET)
     /*public List<AuthResource> getAuths() throws Exception {*/
-    public List<Auth> getAuths() throws Exception {
+    public List<AuthEntity> getAuths() throws Exception {
         return authService.findAllByEnableFlag(EnableFlag.Y.getValue());
     }
 
@@ -33,10 +33,10 @@ public class AuthController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> createAuth(
             /*@Validated @RequestBody AuthResource authResource,*/
-            @Validated @RequestBody Auth authResource,
+            @Validated @RequestBody AuthEntity authResource,
             UriComponentsBuilder uriComponentsBuilder) throws Exception {
-        /*Auth auth = authService.save(authResource.toInsert().toEntity());*/
-        Auth auth = authService.save(authResource);
+        /*AuthEntity auth = authService.save(authResource.toInsert().toEntity());*/
+        AuthEntity auth = authService.save(authResource);
 
         URI resourceUri = MvcUriComponentsBuilder
                 .relativeTo(uriComponentsBuilder)
@@ -48,7 +48,7 @@ public class AuthController {
     // [GET] /auths/{authId}
     @RequestMapping(path = "/{authId}", method = RequestMethod.GET)
     /*public AuthResource getAuth(@PathVariable int authId) throws Exception {*/
-    public Auth getAuth(@PathVariable int authId) throws Exception {
+    public AuthEntity getAuth(@PathVariable int authId) throws Exception {
         /*return authService.findBySequence(authId);*/
         return authService.findBySequenceAndEnableFlag(authId, EnableFlag.Y.getValue());
     }
@@ -58,7 +58,7 @@ public class AuthController {
     public ResponseEntity<Void> updateAuth(
             @PathVariable int authId,
             /*@Validated @RequestBody AuthResource authResource) throws Exception {*/
-            @Validated @RequestBody Auth authResource) throws Exception {
+            @Validated @RequestBody AuthEntity authResource) throws Exception {
         /*authService.updateBySequence(authId, authResource.toUpdate().toEntity());*/
         authService.updateBySequence(authId, authResource);
         return null;

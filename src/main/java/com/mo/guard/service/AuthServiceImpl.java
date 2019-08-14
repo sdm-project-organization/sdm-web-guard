@@ -1,8 +1,8 @@
 package com.mo.guard.service;
 
 import com.mo.guard.constant.EnableFlag;
-import com.mo.guard.model.table.Auth;
-import com.mo.guard.model.table.relation.RelationAuthResource;
+import com.mo.guard.model.entity.AuthEntity;
+import com.mo.guard.model.entity.relation.RelationAuthResource;
 import com.mo.guard.repository.AuthRepository;
 import com.mo.guard.repository.relation.RelationAuthResourceRepository;
 import com.mo.guard.service.core.AuthService;
@@ -24,28 +24,33 @@ public class AuthServiceImpl implements AuthService {
     RelationAuthResourceRepository relationAuthResourceRepository;
 
     @Override
-    public List<Auth> findAllByEnableFlag(byte enableFlag) {
+    public List<AuthEntity> findAllByEnableFlag(byte enableFlag) {
         return authRepository.findAllByEnableFlag(enableFlag);
     }
 
     @Override
-    public Auth save(Auth obj) {
+    public AuthEntity save(AuthEntity obj) throws RuntimeException {
         return authRepository.save(obj);
     }
 
     @Override
-    public Auth findBySequence(int sequence) {
+    public List<AuthEntity> saveAll(List<AuthEntity> auths) throws RuntimeException {
+        return authRepository.saveAll(auths);
+    }
+
+    @Override
+    public AuthEntity findBySequence(int sequence) {
         return authRepository.findBySequence(sequence);
     }
 
     @Override
-    public Auth findBySequenceAndEnableFlag(int sequence, byte enableFlag) {
+    public AuthEntity findBySequenceAndEnableFlag(int sequence, byte enableFlag) {
         return authRepository.findBySequenceAndEnableFlag(sequence, enableFlag);
     }
 
     @Override
-    public Auth updateBySequence(int sequence, Auth targetAuth) {
-        Auth originAuth = findBySequenceAndEnableFlag(sequence, EnableFlag.Y.getValue());
+    public AuthEntity updateBySequence(int sequence, AuthEntity targetAuth) {
+        AuthEntity originAuth = findBySequenceAndEnableFlag(sequence, EnableFlag.Y.getValue());
         originAuth.setDisplayName(targetAuth.getDisplayName());
         originAuth.setDisplayOrder(targetAuth.getDisplayOrder());
         originAuth.setDesc(targetAuth.getDesc());
@@ -54,13 +59,13 @@ public class AuthServiceImpl implements AuthService {
     }
 
     /**
-     * updateRelationWithResourcesBySequence - `Auth` 와 `Resource` 간의 관계 관리
+     * updateRelationWithResourcesBySequence - `AuthEntity` 와 `ResourceEntity` 간의 관계 관리
      *
-     * @param authSequence - Auth Id
-     * @param listOfNewResourceId - 새로운 Resource Id 목록
+     * @param authSequence - AuthEntity Id
+     * @param listOfNewResourceId - 새로운 ResourceEntity Id 목록
      * */
     public void updateRelationWithResourcesBySequence(int authSequence, List<Integer> listOfNewResourceId) throws Exception {
-        Auth auth = authRepository.findBySequenceAndEnableFlag(authSequence, EnableFlag.Y.getValue());
+        AuthEntity auth = authRepository.findBySequenceAndEnableFlag(authSequence, EnableFlag.Y.getValue());
         List<Integer> listOfOriginResourceId;
         List<Integer> listOfNoDuplicate = listOfNewResourceId;
         List<RelationAuthResource> result = new ArrayList<>();
@@ -101,8 +106,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public Auth unenable(int sequence) {
-        Auth auth = findBySequence(sequence);
+    public AuthEntity unenable(int sequence) {
+        AuthEntity auth = findBySequence(sequence);
         auth.setEnableFlag(EnableFlag.N.getValue());
         authRepository.flush();
         return auth;

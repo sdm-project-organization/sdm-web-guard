@@ -1,4 +1,5 @@
 {
+  "application" : "guard",
   "resources": {
     "getApps": {
       "method": "GET",

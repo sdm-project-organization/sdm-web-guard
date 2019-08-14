@@ -1,20 +1,15 @@
 package com.mo.guard.controller.relation;
 
 import com.mo.guard.constant.EnableFlag;
-import com.mo.guard.model.table.relation.RelationAuthResource;
-import com.mo.guard.service.relation.RelationAuthResourceService;
+import com.mo.guard.model.entity.relation.RelationAuthResource;
 import com.mo.guard.service.relation.RelationAuthResourceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
-
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 
 @RestController
 @RequestMapping("relation/auth/resource")

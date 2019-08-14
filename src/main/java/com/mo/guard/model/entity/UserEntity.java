@@ -1,11 +1,8 @@
-package com.mo.guard.model.table;
+package com.mo.guard.model.entity;
 
 import com.mo.guard.constant.ActiveFlag;
 import com.mo.guard.constant.EnableFlag;
-import com.mo.guard.model.table.relation.RelationAuthResource;
-import com.mo.guard.model.table.relation.RelationRoleAuth;
 import lombok.Data;
-import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -17,29 +14,37 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "G_ROLE_TB")
+@Table(name = "G_USER_TB")
 @EntityListeners(value = {AuditingEntityListener.class})
 @Data
-public class Role {
+public class UserEntity {
 
     @Id
-    @Column(name = "role_sq")
+    /*@GeneratedValue(strategy = GenerationType.SEQUENCE)*/
+    @Column(name = "user_sq")
     public int sequence;
-
-    /*@OneToMany
-    @JoinColumn(name = "role_sq")
-    @Where(clause = "enable_fl = 1")
-    public List<RelationRoleAuth> relationAuths;*/
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "G_R_ROLE_AUTH_TB",
-            joinColumns = @JoinColumn(name = "role_sq"),
-            inverseJoinColumns = @JoinColumn(name = "auth_sq"))
-    public List<Auth> auths;
+            name = "G_R_USER_ROLE_TB",
+            joinColumns = @JoinColumn(name = "user_sq", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "role_sq", nullable = false))
+    public List<RoleEntity> roles;
 
-    @Column(name = "expired_period")
-    public int expiredPeriod;
+    @Column(name = "username")
+    public String username;
+
+    @Column(name = "password")
+    public String password;
+
+    @Column(name = "email")
+    public String email;
+
+    @Column(name = "name")
+    public String name;
+
+    @Column(name = "meta")
+    public String meta;
 
     @Column(name = "disp_ord")
     public Integer displayOrder;
@@ -49,9 +54,6 @@ public class Role {
 
     @Column(name = "`desc`")
     public String desc;
-
-    @Column(name = "meta")
-    public String meta;
 
     @Column(name = "active_fl", nullable = false)
     public Byte activeFlag = ActiveFlag.Y.getValue();

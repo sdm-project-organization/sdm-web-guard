@@ -1,4 +1,4 @@
-package com.mo.guard.model.table;
+package com.mo.guard.model.entity;
 
 import com.mo.guard.constant.ActiveFlag;
 import com.mo.guard.constant.EnableFlag;
@@ -13,32 +13,22 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "G_RESOURCE_TB")
+@Table(name = "G_APP_TB")
 @EntityListeners(value = {AuditingEntityListener.class})
 @Data
-public class Resource {
+public class AppEntity {
 
     @Id
-    @Column(name = "resource_sq")
-    public int sequence;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Throw to MySQL
     @Column(name = "app_sq")
-    public int appSequence;
-
-    @Column(name= "http_method")
-    public String httpMethod;
-
-    @Column(name= "http_path")
-    public String httpPath;
+    /*@GeneratedValue*/
+    public int sequence;
 
     @Column(name = "disp_ord")
     public Integer displayOrder;
 
     @Column(name = "disp_nm")
     public String displayName;
-
-    @Column(name = "meta")
-    public String meta;
 
     @Column(name = "`desc`")
     public String desc;

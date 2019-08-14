@@ -1,7 +1,7 @@
 package com.mo.guard.controller;
 
 import com.mo.guard.constant.EnableFlag;
-import com.mo.guard.model.table.App;
+import com.mo.guard.model.entity.AppEntity;
 import com.mo.guard.service.AppServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class AppController {
     // [GET] /apps
     @RequestMapping(method = RequestMethod.GET)
     /*public List<AppResource> getApps() throws Exception {*/
-    public List<App> getApps() throws Exception {
+    public List<AppEntity> getApps() throws Exception {
         return appService.findAllByEnableFlag(EnableFlag.Y.getValue());
     }
 
@@ -33,10 +33,10 @@ public class AppController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> createApp(
             /*@Validated @RequestBody AppResource appResource,*/
-            @Validated @RequestBody App appResource,
+            @Validated @RequestBody AppEntity appResource,
             UriComponentsBuilder uriComponentsBuilder) throws Exception {
-        /*App app = appService.save(appResource.toInsert().toEntity());*/
-        App app = appService.save(appResource);
+        /*AppEntity app = appService.save(appResource.toInsert().toEntity());*/
+        AppEntity app = appService.save(appResource);
 
         URI resourceUri = MvcUriComponentsBuilder
                 .relativeTo(uriComponentsBuilder)
@@ -48,7 +48,7 @@ public class AppController {
     // [GET] /apps/{appId}
     @RequestMapping(path = "/{appId}", method = RequestMethod.GET)
     /*public AppResource getApp(@PathVariable int appId) throws Exception {*/
-    public App getApp(@PathVariable int appId) throws Exception {
+    public AppEntity getApp(@PathVariable int appId) throws Exception {
         return appService.findBySequence(appId);
     }
 
@@ -57,7 +57,7 @@ public class AppController {
     public ResponseEntity<Void> updateApp(
             @PathVariable int appId,
             /*@Validated @RequestBody AppResource appResource) throws Exception {*/
-            @Validated @RequestBody App appResource) throws Exception {
+            @Validated @RequestBody AppEntity appResource) throws Exception {
         /*appService.updateBySequence(appId, appResource.toUpdate().toEntity());*/
         appService.updateBySequence(appId, appResource);
         return null;

@@ -1,10 +1,11 @@
-package com.mo.guard.model.table.relation;
+package com.mo.guard.model.entity.relation;
 
 import com.mo.guard.constant.ActiveFlag;
 import com.mo.guard.constant.EnableFlag;
-import com.mo.guard.model.embedded.RelationRoleAuthId;
-import com.mo.guard.model.table.Auth;
+import com.mo.guard.model.embedded.RelationAuthResourceId;
+import com.mo.guard.model.entity.ResourceEntity;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -15,23 +16,24 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "G_R_ROLE_AUTH_TB")
+@Table(name = "G_R_AUTH_RESOURCE_TB")
 @EntityListeners(value = {AuditingEntityListener.class})
-@IdClass(RelationRoleAuthId.class)
+@IdClass(RelationAuthResourceId.class)
 @Data
-public class RelationRoleAuth {
-
-    @Id
-    @Column(name = "role_sq")
-    public int roleSequence;
+@NoArgsConstructor
+public class RelationAuthResource {
 
     @Id
     @Column(name = "auth_sq")
     public int authSequence;
 
+     @Id
+     @Column(name = "resource_sq")
+     public int resourceSequence;
+
     @ManyToOne
-    @JoinColumn(name = "auth_sq", insertable = false, updatable = false)
-    public Auth auth;
+    @JoinColumn(name = "resource_sq", insertable = false, updatable = false)
+    public ResourceEntity resource;
 
     @Column(name = "disp_ord")
     public Integer displayOrder;
@@ -52,7 +54,7 @@ public class RelationRoleAuth {
     public Byte enableFlag = EnableFlag.Y.getValue();
 
     @CreatedDate
-    @Column(name = "created_dt", nullable = false, updatable = false)
+    @Column(name = "created_dt", updatable = false)
     public LocalDateTime createdDate;
 
     @LastModifiedDate
@@ -60,7 +62,7 @@ public class RelationRoleAuth {
     public LocalDateTime updatedDate;
 
     @CreatedBy
-    @Column(name = "writer", nullable = false, updatable = false)
+    @Column(name = "writer", updatable = false)
     public String writer;
 
     @LastModifiedBy

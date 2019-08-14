@@ -1,12 +1,9 @@
 package com.mo.guard.controller;
 
 import com.mo.guard.constant.EnableFlag;
-import com.mo.guard.model.resource.UserResource;
-import com.mo.guard.model.table.App;
-import com.mo.guard.model.table.User;
+import com.mo.guard.model.entity.UserEntity;
 import com.mo.guard.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -14,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -31,7 +26,7 @@ public class UserController {
     // [GET] /users
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getUsers() throws Exception {
+    public List<UserEntity> getUsers() throws Exception {
         return userService.findAllByEnableFlag(EnableFlag.Y.getValue());
     }
 
@@ -40,7 +35,7 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<Void> saveUser(
             /*@Validated @RequestBody UserResource userResource,*/
-            @Validated @RequestBody User userResource,
+            @Validated @RequestBody UserEntity userResource,
             BindingResult bindingResult,
             UriComponentsBuilder uriComponentsBuilder) throws Exception {
 
@@ -51,8 +46,8 @@ public class UserController {
                     .body("dict"*//*TODO*//*);*/
         }
 
-        /*User user = userService.save(userResource.toEntity());*/
-        User user = userService.save(userResource);
+        /*UserEntity user = userService.save(userResource.toEntity());*/
+        UserEntity user = userService.save(userResource);
 
         URI resourceUri = MvcUriComponentsBuilder
                 .relativeTo(uriComponentsBuilder)
@@ -64,14 +59,14 @@ public class UserController {
     // [GET] /users/{userSeq}
     @RequestMapping(path = "/{userSeq}", method = RequestMethod.GET)
     /*public AppResource getApp(@PathVariable int userSeq) throws Exception {*/
-    public User getUser(@PathVariable int userSeq) throws Exception {
+    public UserEntity getUser(@PathVariable int userSeq) throws Exception {
         return userService.findBySequence(userSeq);
     }
 
     // [GET] /users/username/{username}
     @RequestMapping(path = "/username/{username}", method = RequestMethod.GET)
     /*public AppResource getApp(@PathVariable int userSeq) throws Exception {*/
-    public User getUserByUsername(@PathVariable String username) throws Exception {
+    public UserEntity getUserByUsername(@PathVariable String username) throws Exception {
         return userService.findByUsernameAndEnableFlag(username, EnableFlag.Y.getValue());
     }
 
@@ -80,7 +75,7 @@ public class UserController {
     public ResponseEntity<Void> updateBySequence(
             @PathVariable int userSeq,
             /*@Validated @RequestBody UserResource userResource) throws Exception {*/
-            @Validated @RequestBody User userResource) throws Exception {
+            @Validated @RequestBody UserEntity userResource) throws Exception {
         /*appService.updateBySequence(appId, appResource.toUpdate().toEntity());*/
         userService.updateBySequence(userSeq, userResource);
         return null;

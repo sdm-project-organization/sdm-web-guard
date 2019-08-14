@@ -1,4 +1,4 @@
-package com.mo.guard.model.table;
+package com.mo.guard.model.entity;
 
 import com.mo.guard.constant.ActiveFlag;
 import com.mo.guard.constant.EnableFlag;
@@ -11,17 +11,31 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "G_APP_TB")
+@Table(name = "G_AUTH_TB")
 @EntityListeners(value = {AuditingEntityListener.class})
 @Data
-public class App {
+public class AuthEntity {
 
     @Id
-    @Column(name = "app_sq")
-    /*@GeneratedValue*/
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Throw to MySQL
+    @Column(name = "auth_sq")
     public int sequence;
+
+    /*@OneToMany
+    @JoinColumn(name = "auth_sq")
+    @Where(clause = "enable_fl = 1")
+    public List<RelationAuthResource> relationResources;*/
+
+    @ManyToMany(fetch = FetchType.LAZY) // 단방향
+    @JoinTable(
+            name = "G_R_AUTH_RESOURCE_TB",
+            joinColumns = @JoinColumn(name = "auth_sq"),
+            inverseJoinColumns = @JoinColumn(name = "resource_sq"))
+    public List<ResourceEntity> resources = new ArrayList<>();
 
     @Column(name = "disp_ord")
     public Integer displayOrder;

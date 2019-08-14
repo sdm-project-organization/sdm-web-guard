@@ -1,9 +1,9 @@
 package com.mo.guard.service.core;
 
-import com.mo.guard.model.table.User;
+import com.mo.guard.model.entity.UserEntity;
 
-public interface UserService extends CommonService<User> {
+public interface UserService extends CommonService<UserEntity> {
 
-    User findByUsernameAndEnableFlag(String username, byte enableFlag);
+    UserEntity findByUsernameAndEnableFlag(String username, byte enableFlag);
 
 }

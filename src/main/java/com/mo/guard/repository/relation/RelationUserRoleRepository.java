@@ -1,6 +1,6 @@
 package com.mo.guard.repository.relation;
 
-import com.mo.guard.model.table.relation.RelationUserRole;
+import com.mo.guard.model.entity.relation.RelationUserRole;
 import com.mo.guard.repository.core.RelationRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

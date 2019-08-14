@@ -2,7 +2,7 @@ package com.mo.guard.service;
 
 import com.mo.guard.builder.RequestPathBuilder;
 import com.mo.guard.constant.EnableFlag;
-import com.mo.guard.model.table.Role;
+import com.mo.guard.model.entity.RoleEntity;
 import com.mo.guard.repository.RoleRepository;
 import com.mo.guard.service.core.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,30 +24,30 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Role> findAllByEnableFlag(byte enableFlag) {
+    public List<RoleEntity> findAllByEnableFlag(byte enableFlag) {
         return roleRepository.findAllByEnableFlag(enableFlag);
     }
 
     @Override
-    public Role findBySequence(int sequence) {
+    public RoleEntity findBySequence(int sequence) {
         return roleRepository.findBySequence(sequence);
     }
 
     @Override
-    public Role findBySequenceAndEnableFlag(int sequence, byte enableFlag) {
+    public RoleEntity findBySequenceAndEnableFlag(int sequence, byte enableFlag) {
         return roleRepository.findBySequenceAndEnableFlag(sequence, enableFlag);
     }
 
     /**
      * TODO renaming
-     * findAllByOrgName - 조직이름으로 Caching Resource 조회하기
+     * findAllByOrgName - 조직이름으로 Caching ResourceEntity 조회하기
      *
      * @param orgName - 조직이름
      * @return Map - RoleName : Set of ResourceName
      * */
     public Map<String, Object> findAllByOrgName(String orgName) {
         // TODO organ-name 적용예정
-        List<Role> roles = roleRepository.findAllByEnableFlag(EnableFlag.Y.getValue());
+        List<RoleEntity> roles = roleRepository.findAllByEnableFlag(EnableFlag.Y.getValue());
         Map<String, Object> result = new TreeMap<>();
 
         roles.stream().forEach(role -> {
@@ -68,19 +68,19 @@ public class RoleServiceImpl implements RoleService {
      *
      * @param listOfRoleId
      * */
-    public List<Role> findAllBySequenceIn(List<Integer> listOfRoleId) {
-        List<Role> roles = roleRepository.findAllBySequenceIn(listOfRoleId);
+    public List<RoleEntity> findAllBySequenceIn(List<Integer> listOfRoleId) {
+        List<RoleEntity> roles = roleRepository.findAllBySequenceIn(listOfRoleId);
         return roles;
     }
 
     @Override
-    public Role save(Role obj) {
+    public RoleEntity save(RoleEntity obj) {
         return roleRepository.save(obj);
     }
 
     @Override
-    public Role updateBySequence(int sequence, Role targetRole) {
-        Role originRole = findBySequenceAndEnableFlag(sequence, EnableFlag.Y.getValue());
+    public RoleEntity updateBySequence(int sequence, RoleEntity targetRole) {
+        RoleEntity originRole = findBySequenceAndEnableFlag(sequence, EnableFlag.Y.getValue());
         originRole.setExpiredPeriod(targetRole.getExpiredPeriod());
         originRole.setDisplayName(targetRole.getDisplayName());
         originRole.setDisplayOrder(targetRole.getDisplayOrder());
@@ -91,8 +91,8 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role unenable(int sequence) {
-        Role role = findBySequence(sequence);
+    public RoleEntity unenable(int sequence) {
+        RoleEntity role = findBySequence(sequence);
         role.setEnableFlag(EnableFlag.N.getValue());
         roleRepository.flush();
         return role;

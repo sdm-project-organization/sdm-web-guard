@@ -1,12 +1,8 @@
-package com.mo.guard.model.table.relation;
+package com.mo.guard.model.entity;
 
 import com.mo.guard.constant.ActiveFlag;
 import com.mo.guard.constant.EnableFlag;
-import com.mo.guard.model.embedded.RelationAuthResourceId;
-import com.mo.guard.model.table.Auth;
-import com.mo.guard.model.table.Resource;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -17,24 +13,24 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "G_R_AUTH_RESOURCE_TB")
+@Table(name = "G_RESOURCE_TB")
 @EntityListeners(value = {AuditingEntityListener.class})
-@IdClass(RelationAuthResourceId.class)
 @Data
-@NoArgsConstructor
-public class RelationAuthResource {
+public class ResourceEntity {
 
     @Id
-    @Column(name = "auth_sq")
-    public int authSequence;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Throw to MySQL
+    @Column(name = "resource_sq")
+    public int sequence;
 
-     @Id
-     @Column(name = "resource_sq")
-     public int resourceSequence;
+    @Column(name = "app_sq")
+    public int appSequence;
 
-    @ManyToOne
-    @JoinColumn(name = "resource_sq", insertable = false, updatable = false)
-    public Resource resource;
+    @Column(name= "http_method")
+    public String httpMethod;
+
+    @Column(name= "http_path")
+    public String httpPath;
 
     @Column(name = "disp_ord")
     public Integer displayOrder;
@@ -42,11 +38,11 @@ public class RelationAuthResource {
     @Column(name = "disp_nm")
     public String displayName;
 
-    @Column(name = "`desc`")
-    public String desc;
-
     @Column(name = "meta")
     public String meta;
+
+    @Column(name = "`desc`")
+    public String desc;
 
     @Column(name = "active_fl", nullable = false)
     public Byte activeFlag = ActiveFlag.Y.getValue();

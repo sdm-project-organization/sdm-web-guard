@@ -1,7 +1,7 @@
 package com.mo.guard.controller;
 
 import com.mo.guard.constant.EnableFlag;
-import com.mo.guard.model.table.Role;
+import com.mo.guard.model.entity.RoleEntity;
 import com.mo.guard.service.RoleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,16 +26,16 @@ public class RoleController {
     // [GET] /roles
     @RequestMapping(method = RequestMethod.GET)
     /*public List<RoleResource> getRoles() throws Exception {*/
-    public List<Role> getRoles() throws Exception {
+    public List<RoleEntity> getRoles() throws Exception {
         return roleService.findAllByEnableFlag(EnableFlag.Y.getValue());
     }
 
     // [POST] /roles
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> createRole(@Validated @RequestBody Role roleResource,
+    public ResponseEntity<Void> createRole(@Validated @RequestBody RoleEntity roleResource,
                                            UriComponentsBuilder uriComponentsBuilder) throws Exception {
-        /*Role role = roleService.save(roleResource.toInsert().toEntity());*/
-        Role role = roleService.save(roleResource);
+        /*RoleEntity role = roleService.save(roleResource.toInsert().toEntity());*/
+        RoleEntity role = roleService.save(roleResource);
 
         URI resourceUri = MvcUriComponentsBuilder
                 .relativeTo(uriComponentsBuilder)
@@ -47,7 +47,7 @@ public class RoleController {
     // [GET] /roles/{roleSeq}
     @RequestMapping(path = "/{roleSeq}", method = RequestMethod.GET)
     /*public RoleResource getRole(@PathVariable int roleSeq) throws Exception {*/
-    public Role getRole(@PathVariable int roleSeq) throws Exception {
+    public RoleEntity getRole(@PathVariable int roleSeq) throws Exception {
         /*return roleService.findBySequence(roleSeq);*/
         return roleService.findBySequenceAndEnableFlag(roleSeq, EnableFlag.Y.getValue());
     }
@@ -61,7 +61,7 @@ public class RoleController {
     // [PUT] /roles/{roleSeq}
     @RequestMapping(path = "/{roleSeq}", method = RequestMethod.PUT)
     public ResponseEntity<Void> updateRole(@PathVariable int roleSeq,
-                                           @Validated @RequestBody Role roleResource) throws Exception {
+                                           @Validated @RequestBody RoleEntity roleResource) throws Exception {
         roleService.updateBySequence(roleSeq, roleResource);
         return null;
     }

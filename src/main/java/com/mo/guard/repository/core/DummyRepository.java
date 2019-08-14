@@ -18,4 +18,7 @@ public interface DummyRepository<T extends Object> extends BaseRepository<T> {
 
     T findBySequenceAndActiveFlagAndEnableFlag(int sequence, byte activeFlag, byte enableFlag);
 
+    T findByDisplayNameAndEnableFlag(String displayName, byte enableFlag);
+
+
 }

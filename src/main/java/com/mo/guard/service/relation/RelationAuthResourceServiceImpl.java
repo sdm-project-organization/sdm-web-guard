@@ -1,15 +1,12 @@
 package com.mo.guard.service.relation;
 
 import com.mo.guard.constant.EnableFlag;
-import com.mo.guard.model.embedded.RelationAuthResourceId;
-import com.mo.guard.model.table.relation.RelationAuthResource;
+import com.mo.guard.model.entity.relation.RelationAuthResource;
 import com.mo.guard.repository.relation.RelationAuthResourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.lang.Integer.parseInt;
 

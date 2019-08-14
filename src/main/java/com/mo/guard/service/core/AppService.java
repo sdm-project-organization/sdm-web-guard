@@ -1,7 +1,7 @@
 package com.mo.guard.service.core;
 
-import com.mo.guard.model.table.App;
+import com.mo.guard.model.entity.AppEntity;
 
-public interface AppService extends CommonService<App> {
+public interface AppService extends CommonService<AppEntity> {
 
 }

@@ -1,7 +1,7 @@
 package com.mo.guard.service.relation;
 
 import com.mo.guard.constant.EnableFlag;
-import com.mo.guard.model.table.relation.RelationUserRole;
+import com.mo.guard.model.entity.relation.RelationUserRole;
 import com.mo.guard.repository.relation.RelationUserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

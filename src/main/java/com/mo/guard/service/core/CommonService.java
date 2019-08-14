@@ -34,6 +34,10 @@ public interface CommonService<T> {
         return null;
     }
 
+    default T findByDisplayNameAndEnableFlag(String displayName, byte enableFlag) {
+        return null;
+    }
+
     default List<T> findAllByEnableFlag(byte enableFlag) {
         return null;
     }
@@ -56,17 +60,17 @@ public interface CommonService<T> {
 
     // save
 
-    default T save(T obj) throws Exception { return null; }
+    default T save(T obj) throws RuntimeException { return null; }
 
-    default List<T> saveAll(List<T> list) {
+    default List<T> saveAll(List<T> list) throws RuntimeException {
         return null;
     }
 
     // update
 
-    /*default void updateBySequence(int sequence, T tree) throws Exception { }*/
+    /*default void updateBySequence(int sequence, T tree) throws RuntimeException { }*/
 
-    default T updateBySequence(int sequence, T tree) throws Exception { return null; }
+    default T updateBySequence(int sequence, T tree) throws RuntimeException { return null; }
 
     default T active(int sequence) {
         return null;
@@ -80,7 +84,7 @@ public interface CommonService<T> {
         return null;
     }
 
-    default T unenable(int sequence) throws Exception {
+    default T unenable(int sequence) throws RuntimeException {
         return null;
     }
 
