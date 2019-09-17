@@ -1,4 +1,4 @@
-package com.mo.guard.util;
+package com.mo.guard.security;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;

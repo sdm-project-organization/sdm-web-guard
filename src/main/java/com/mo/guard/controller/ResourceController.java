@@ -26,7 +26,7 @@ public class ResourceController {
     @RequestMapping(method = RequestMethod.GET)
     /*public List<ResourceResource> getResources() throws Exception {*/
     public List<ResourceEntity> getResources() throws Exception {
-        return resourceService.findAllByEnableFlag(EnableFlag.Y.getValue());
+        return resourceService.findAllByEnableFlag(EnableFlag.YES);
     }
 
     // [POST] /resources

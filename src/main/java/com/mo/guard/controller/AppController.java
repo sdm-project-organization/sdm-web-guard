@@ -26,7 +26,7 @@ public class AppController {
     @RequestMapping(method = RequestMethod.GET)
     /*public List<AppResource> getApps() throws Exception {*/
     public List<AppEntity> getApps() throws Exception {
-        return appService.findAllByEnableFlag(EnableFlag.Y.getValue());
+        return appService.findAllByEnableFlag(EnableFlag.YES);
     }
 
     // [POST] /apps
@@ -49,18 +49,19 @@ public class AppController {
     @RequestMapping(path = "/{appId}", method = RequestMethod.GET)
     /*public AppResource getApp(@PathVariable int appId) throws Exception {*/
     public AppEntity getApp(@PathVariable int appId) throws Exception {
-        return appService.findBySequence(appId);
+        /*AppEntity app = appService.findBySequence(appId);*/
+        AppEntity app = appService.findBySequenceAndEnableFlag(appId, EnableFlag.YES);
+        return app;
     }
 
     // [PUT] /apps/{appId}
     @RequestMapping(path = "/{appId}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> updateApp(
+    public AppEntity updateApp(
             @PathVariable int appId,
             /*@Validated @RequestBody AppResource appResource) throws Exception {*/
-            @Validated @RequestBody AppEntity appResource) throws Exception {
+            @Validated @RequestBody AppEntity appEntity) throws Exception {
         /*appService.updateBySequence(appId, appResource.toUpdate().toEntity());*/
-        appService.updateBySequence(appId, appResource);
-        return null;
+        return appService.updateBySequence(appId, appEntity);
     }
 
     // [DELETE] /apps/{appId}

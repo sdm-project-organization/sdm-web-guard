@@ -25,6 +25,9 @@ public class RoleEntity {
     @Column(name = "role_sq")
     public int sequence;
 
+    @Column(name = "organ_sq")
+    public int organSequence;
+
     /*@OneToMany
     @JoinColumn(name = "role_sq")
     @Where(clause = "enable_fl = 1")
@@ -52,11 +55,13 @@ public class RoleEntity {
     @Column(name = "meta")
     public String meta;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "active_fl", nullable = false)
-    public Byte activeFlag = ActiveFlag.Y.getValue();
+    public ActiveFlag activeFlag = ActiveFlag.YES;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "enable_fl", nullable = false)
-    public Byte enableFlag = EnableFlag.Y.getValue();
+    public EnableFlag enableFlag = EnableFlag.YES;
 
     @CreatedDate
     @Column(name = "created_dt", nullable = false, updatable = false)

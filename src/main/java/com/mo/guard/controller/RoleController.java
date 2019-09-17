@@ -27,7 +27,7 @@ public class RoleController {
     @RequestMapping(method = RequestMethod.GET)
     /*public List<RoleResource> getRoles() throws Exception {*/
     public List<RoleEntity> getRoles() throws Exception {
-        return roleService.findAllByEnableFlag(EnableFlag.Y.getValue());
+        return roleService.findAllByEnableFlag(EnableFlag.YES);
     }
 
     // [POST] /roles
@@ -49,7 +49,7 @@ public class RoleController {
     /*public RoleResource getRole(@PathVariable int roleSeq) throws Exception {*/
     public RoleEntity getRole(@PathVariable int roleSeq) throws Exception {
         /*return roleService.findBySequence(roleSeq);*/
-        return roleService.findBySequenceAndEnableFlag(roleSeq, EnableFlag.Y.getValue());
+        return roleService.findBySequenceAndEnableFlag(roleSeq, EnableFlag.YES);
     }
 
     // [GET] /roles/orgname/{orgName}/restmap

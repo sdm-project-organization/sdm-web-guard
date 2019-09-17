@@ -25,6 +25,9 @@ public class AuthEntity {
     @Column(name = "auth_sq")
     public int sequence;
 
+    @Column(name = "app_sq")
+    public int appSequence;
+
     /*@OneToMany
     @JoinColumn(name = "auth_sq")
     @Where(clause = "enable_fl = 1")
@@ -46,11 +49,13 @@ public class AuthEntity {
     @Column(name = "`desc`")
     public String desc;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "active_fl", nullable = false)
-    public Byte activeFlag = ActiveFlag.Y.getValue();
+    public ActiveFlag activeFlag = ActiveFlag.YES;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "enable_fl", nullable = false)
-    public Byte enableFlag = EnableFlag.Y.getValue();
+    public EnableFlag enableFlag = EnableFlag.YES;
 
     @CreatedDate
     @Column(name = "created_dt", nullable = false, updatable = false)

@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     RoleServiceImpl roleService;
 
     @Override
-    public List<UserEntity> findAllByEnableFlag(byte enableFlag) {
+    public List<UserEntity> findAllByEnableFlag(EnableFlag enableFlag) {
         /*return appRepository.findAll();*/
         List<UserEntity> users = userRepository.findAllByEnableFlag(enableFlag);
         return users;
@@ -34,13 +34,13 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    public UserEntity findBySequenceAndEnableFlag(int sequence, byte enableFlag) {
+    public UserEntity findBySequenceAndEnableFlag(int sequence, EnableFlag enableFlag) {
         UserEntity user = userRepository.findBySequenceAndEnableFlag(sequence, enableFlag);
         return user;
     }
 
     @Override
-    public UserEntity findByUsernameAndEnableFlag(String username, byte enableFlag) {
+    public UserEntity findByUsernameAndEnableFlag(String username, EnableFlag enableFlag) {
         UserEntity user = userRepository.findByUsernameAndEnableFlag(username, enableFlag);
         return user;
     }
@@ -66,12 +66,12 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserEntity updateRolesBySequence(int sequence, List<Integer> listOfRoleId) throws RuntimeException {
-        UserEntity originUser = findBySequenceAndEnableFlag(sequence, EnableFlag.Y.getValue());
+        UserEntity originUser = findBySequenceAndEnableFlag(sequence, EnableFlag.YES);
         if(originUser == null)
             throw new NotFoundUserException();
 
         // validation
-        if(listOfRoleId.size() != 0) {
+        /*if(listOfRoleId.size() != 0) {
             // TODO 비효율적...
             int countOfRole = roleService.countBySequenceIn(listOfRoleId);
             if(listOfRoleId.size() != countOfRole)
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
             originUser.setRoles(roleService.findAllBySequenceIn(listOfRoleId));
         } else {
             originUser.getRoles().clear();
-        }
+        }*/
 
         // TODO relation table 필수조건 어떻게 추가 ?
         // TODO relation delete 이슈 -> 논리삭제필요
@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity unenable(int sequence) {
         UserEntity user = findBySequence(sequence);
-        user.setEnableFlag(EnableFlag.N.getValue());
+        user.setEnableFlag(EnableFlag.NO);
         userRepository.flush();
         return user;
     }

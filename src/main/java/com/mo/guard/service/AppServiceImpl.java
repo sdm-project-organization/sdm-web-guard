@@ -1,6 +1,7 @@
 package com.mo.guard.service;
 
 import com.mo.guard.constant.EnableFlag;
+import com.mo.guard.exception.NotFoundAppException;
 import com.mo.guard.model.entity.AppEntity;
 import com.mo.guard.repository.AppRepository;
 import com.mo.guard.service.core.AppService;
@@ -16,24 +17,25 @@ public class AppServiceImpl implements AppService {
     AppRepository appRepository;
 
     /**
-     * findAllByEnableFlag
-     *
-     * @param enableFlag
-     * */
-    @Override
-    public List<AppEntity> findAllByEnableFlag(byte enableFlag) {
-        /*return appRepository.findAll();*/
-        return appRepository.findAllByEnableFlag(enableFlag);
-    }
-
-    /**
      * findBySequence
      *
      * @param sequence
      * */
+    @Deprecated
     @Override
     public AppEntity findBySequence(int sequence) {
         return appRepository.findBySequence(sequence);
+    }
+
+    /**
+     * findBySequenceAndEnableFlag
+     *
+     * @param sequence
+     * @param enableFlag
+     * */
+    @Override
+    public AppEntity findBySequenceAndEnableFlag(int sequence, EnableFlag enableFlag) {
+        return appRepository.findBySequenceAndEnableFlag(sequence, enableFlag);
     }
 
     /**
@@ -44,11 +46,21 @@ public class AppServiceImpl implements AppService {
      * */
     @Override
     public AppEntity findByDisplayNameAndEnableFlag(String displayName,
-                                                    byte enableFlag) {
+                                                    EnableFlag enableFlag) {
         if(displayName != null && displayName.equals("") == false) {
             return appRepository.findByDisplayNameAndEnableFlag(displayName, enableFlag);
         }
         return null;
+    }
+
+    /**
+     * findAllByEnableFlag
+     *
+     * @param enableFlag
+     * */
+    @Override
+    public List<AppEntity> findAllByEnableFlag(EnableFlag enableFlag) {
+        return appRepository.findAllByEnableFlag(enableFlag);
     }
 
     /**
@@ -70,10 +82,15 @@ public class AppServiceImpl implements AppService {
     @Override
     public AppEntity updateBySequence(int sequence,
                                       AppEntity targetApp) {
-        AppEntity originApp = findBySequenceAndEnableFlag(sequence, EnableFlag.Y.getValue());
+        AppEntity originApp = findBySequenceAndEnableFlag(sequence, EnableFlag.YES);
+        if(originApp == null)
+            return null;
+        originApp.setOrganSequence(targetApp.getOrganSequence());
         originApp.setDisplayName(targetApp.getDisplayName());
         originApp.setDisplayOrder(targetApp.getDisplayOrder());
         originApp.setDesc(targetApp.getDesc());
+        originApp.setActiveFlag(targetApp.getActiveFlag());
+        /* NO_DELETE - originApp.setEnableFlag(targetApp.getEnableFlag());*/
         appRepository.flush();
         return originApp;
     }
@@ -84,9 +101,11 @@ public class AppServiceImpl implements AppService {
      * @param sequence
      * */
     @Override
-    public AppEntity unenable(int sequence) {
-        AppEntity app = findBySequence(sequence);
-        app.setEnableFlag(EnableFlag.N.getValue());
+    public AppEntity unenable(int sequence) throws NotFoundAppException {
+        AppEntity app = findBySequenceAndEnableFlag(sequence, EnableFlag.YES);
+        if(app == null)
+            return null;
+        app.setEnableFlag(EnableFlag.NO);
         appRepository.flush();
         return app;
     }

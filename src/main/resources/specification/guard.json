@@ -1,0 +1,58 @@
+{
+  "application" : "guard",
+  "resources": {
+    "getApps": {
+      "method": "GET",
+      "path": "/api/guard/apps"
+    },
+    "getAppById": {
+      "method": "GET",
+      "path": "/api/guard/apps/{appId}"
+    },
+    "saveApp": {
+      "method": "POST",
+      "path": "/api/guard/apps"
+    },
+    "updateApp": {
+      "method": "POST",
+      "path": "/api/guard/apps/{appId}"
+    },
+    "deleteApp": {
+      "method": "DELETE",
+      "path": "/api/guard/apps/{appId}"
+    },
+    "downloadDoc": {
+      "method": "GET",
+      "path": "/api/guard/docs/download"
+    },
+    "uploadDoc": {
+      "method": "GET",
+      "path": "/api/guard/docs/upload"
+    }
+  },
+  "auths": {
+    "admin": [
+      "getApps", "getAppById", "saveApp", "updateApp", "deleteApp",
+      "downloadDoc","uploadDoc"
+    ],
+    "docs": [
+      "downloadDoc", "uploadDoc"
+    ],
+    "appManage": [
+      "getApps", "getAppById", "saveApp", "updateApp", "deleteApp"
+    ],
+    "reader": [
+
+    ],
+    "default": [
+
+    ]
+  },
+  "roles": {
+    "admin": ["admin"],
+    "techPM": ["admin"],
+    "developer": ["admin"],
+    "operator": ["reader"],
+    "visitor":["default"]
+  }
+}

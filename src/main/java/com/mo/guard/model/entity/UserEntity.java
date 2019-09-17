@@ -14,22 +14,41 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "G_USER_TB")
+@Table(name = "G_USER_TB", uniqueConstraints = {
+        @UniqueConstraint(
+                name = "UNIQUE_OARAN_USERNAME",
+                columnNames = {"organ_sq", "username"})
+})
 @EntityListeners(value = {AuditingEntityListener.class})
 @Data
 public class UserEntity {
 
     @Id
     /*@GeneratedValue(strategy = GenerationType.SEQUENCE)*/
-    @Column(name = "user_sq")
+    @Column(name = "user_sq",
+            columnDefinition = "user sequence (PK)")
     public int sequence;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @Column(name = "organ_sq",
+            insertable = false,
+            updatable = false,
+            columnDefinition = "organization sequence (FK) and (IDX01)")
+    public int organSequence;
+
+    @Column(name = "role_sq",
+            insertable = false,
+            updatable = false,
+            columnDefinition = "role sequence (FK) and (IDX02)")
+    public int roleSequence;
+
+    /*@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "G_R_USER_ROLE_TB",
             joinColumns = @JoinColumn(name = "user_sq", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "role_sq", nullable = false))
-    public List<RoleEntity> roles;
+            inverseJoinColumns = @JoinColumn(name = "role_sq", nullable = false))*/
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="role_sq", nullable = false)
+    public RoleEntity roles;
 
     @Column(name = "username")
     public String username;
@@ -55,11 +74,13 @@ public class UserEntity {
     @Column(name = "`desc`")
     public String desc;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "active_fl", nullable = false)
-    public Byte activeFlag = ActiveFlag.Y.getValue();
+    public ActiveFlag activeFlag = ActiveFlag.YES;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "enable_fl", nullable = false)
-    public Byte enableFlag = EnableFlag.Y.getValue();
+    public EnableFlag enableFlag = EnableFlag.YES;
 
     @CreatedDate
     @Column(name = "created_dt", nullable = false, updatable = false)

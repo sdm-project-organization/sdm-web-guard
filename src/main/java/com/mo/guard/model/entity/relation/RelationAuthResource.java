@@ -47,11 +47,13 @@ public class RelationAuthResource {
     @Column(name = "meta")
     public String meta;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "active_fl", nullable = false)
-    public Byte activeFlag = ActiveFlag.Y.getValue();
+    public ActiveFlag activeFlag = ActiveFlag.YES;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "enable_fl", nullable = false)
-    public Byte enableFlag = EnableFlag.Y.getValue();
+    public EnableFlag enableFlag = EnableFlag.YES;
 
     @CreatedDate
     @Column(name = "created_dt", updatable = false)

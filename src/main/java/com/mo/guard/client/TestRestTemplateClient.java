@@ -1,13 +1,7 @@
 package com.mo.guard.client;
 
-import com.mo.guard.controller.TestController;
-import com.mo.guard.util.UserContext;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component

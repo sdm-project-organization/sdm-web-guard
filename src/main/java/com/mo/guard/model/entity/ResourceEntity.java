@@ -13,7 +13,11 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "G_RESOURCE_TB")
+@Table(name = "G_RESOURCE_TB", uniqueConstraints = {
+        @UniqueConstraint(
+                name = "UNIQUE_APP_RESOURCE",
+                columnNames = {"app_sq", "http_method", "http_path"})
+})
 @EntityListeners(value = {AuditingEntityListener.class})
 @Data
 public class ResourceEntity {
@@ -44,11 +48,13 @@ public class ResourceEntity {
     @Column(name = "`desc`")
     public String desc;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "active_fl", nullable = false)
-    public Byte activeFlag = ActiveFlag.Y.getValue();
+    public ActiveFlag activeFlag = ActiveFlag.YES;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "enable_fl", nullable = false)
-    public Byte enableFlag = EnableFlag.Y.getValue();
+    public EnableFlag enableFlag = EnableFlag.YES;
 
     @CreatedDate
     @Column(name = "created_dt", nullable = false, updatable = false)

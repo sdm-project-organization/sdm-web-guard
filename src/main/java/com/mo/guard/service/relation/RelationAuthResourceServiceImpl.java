@@ -17,7 +17,7 @@ public class RelationAuthResourceServiceImpl implements RelationAuthResourceServ
     RelationAuthResourceRepository relationAuthResourceRepository;
 
     @Override
-    public List<RelationAuthResource> findAllByEnableFlag(byte enableFlag) {
+    public List<RelationAuthResource> findAllByEnableFlag(EnableFlag enableFlag) {
         return relationAuthResourceRepository.findAllByEnableFlag(enableFlag);
     }
 
@@ -27,7 +27,7 @@ public class RelationAuthResourceServiceImpl implements RelationAuthResourceServ
     }
 
     @Override
-    public RelationAuthResource findByPkAndEnableFlag(String id, byte enableFlag) {
+    public RelationAuthResource findByPkAndEnableFlag(String id, EnableFlag enableFlag) {
         /*RelationAuthResourceId relationAuthResourceId = new RelationAuthResourceId(
                 parseInt(id.split("-")[0]),
                 parseInt(id.split("-")[1]));
@@ -37,7 +37,7 @@ public class RelationAuthResourceServiceImpl implements RelationAuthResourceServ
 
     @Override
     public RelationAuthResource updateBySequence(int sequence, RelationAuthResource targetRelationAuthResource) {
-        RelationAuthResource originRelationAuthResource = findBySequenceAndEnableFlag(sequence, EnableFlag.Y.getValue());
+        RelationAuthResource originRelationAuthResource = findBySequenceAndEnableFlag(sequence, EnableFlag.YES);
         originRelationAuthResource.setDisplayName(targetRelationAuthResource.getDisplayName());
         originRelationAuthResource.setDisplayOrder(targetRelationAuthResource.getDisplayOrder());
         originRelationAuthResource.setDesc(targetRelationAuthResource.getDesc());
@@ -48,7 +48,7 @@ public class RelationAuthResourceServiceImpl implements RelationAuthResourceServ
     @Override
     public RelationAuthResource unenable(int sequence) {
         RelationAuthResource relationAuthResource = findBySequence(sequence);
-        relationAuthResource.setEnableFlag(EnableFlag.N.getValue());
+        relationAuthResource.setEnableFlag(EnableFlag.NO);
         relationAuthResourceRepository.flush();
         return relationAuthResource;
     }

@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.4.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
     <groupId>com.mo</groupId>
     <artifactId>guard</artifactId>
-    <name>guard</name>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <packaging>war</packaging>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+    <parent>
+        <groupId>com.mo</groupId>
+        <artifactId>operation</artifactId>
+        <version>0.1</version>
+    </parent>
 
     <dependencies>
+
+        <!-- Spring Boot : Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Spring Boot : Test (Junit, Mock) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
 
         <!-- Spring Cloud : Config Client -->
         <!--<dependency>-->
@@ -27,12 +35,26 @@
             <!--<version>2.0.2.RELEASE</version>-->
         <!--</dependency>-->
 
-        <!-- Spring Cloud : Discovery Client -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-            <version>2.0.2.RELEASE</version>
-        </dependency>
+        <!--&lt;!&ndash; Spring Cloud : Discovery Client &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
+            <!--<version>2.0.2.RELEASE</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; Sprring Cloud : Stream &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-stream</artifactId>-->
+            <!--<version>RELEASE</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; Sprring Cloud : Stream-Kafka &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-starter-stream-kafka</artifactId>-->
+            <!--<version>RELEASE</version>-->
+        <!--</dependency>-->
 
         <!-- Spring Cloud : Security -->
         <!-- 추가만으로 서버내에 권한이 설정 -->
@@ -62,11 +84,13 @@
             <artifactId>jaxb-impl</artifactId>
             <version>2.2.11</version>
         </dependency>
+
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
             <version>1.1</version>
         </dependency>
+
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
@@ -80,65 +104,16 @@
             <!--<version>1.0.9.RELEASE</version>-->
         <!--</dependency>-->
 
-        <!-- Spring Boot : Web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!-- Spring Boot : Test -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-
-        <!-- Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <!-- Spring Boot : JPA -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <!-- Spring Boot : JDBC Driver -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-
-        <!-- DB : H2-->
-        <!--<dependency>-->
-            <!--<groupId>com.h2database</groupId>-->
-            <!--<artifactId>h2</artifactId>-->
-            <!--<scope>compile</scope>-->
-        <!--</dependency>-->
-
         <!-- DB : MySQL -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
         </dependency>
 
-        <!-- Swagger -->
+        <!-- Spring Boot : JPA (JDBC Driver 포함)-->
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
-            <!--<scope>test</scope>-->
-        </dependency>
-
-        <!-- Swagger : UI -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
-            <!--<scope>test</scope>-->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
     </dependencies>

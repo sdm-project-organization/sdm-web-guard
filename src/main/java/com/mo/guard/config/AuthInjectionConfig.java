@@ -19,13 +19,13 @@ public class AuthInjectionConfig {
     @Autowired
     DocService docService;
 
-    @PostConstruct
+    /*@PostConstruct
     public void injectGuardAuth() throws RuntimeException, IOException {
-        File file = FileUtil.loadResource("static/specification/guard.json");
+        File file = FileUtil.loadResource("specification/guard.json");
         String specification = FileUtil.readFile(file);
         Doc doc = JsonUtil.getJsonObject(Doc.class, specification);
         docService.uploadDoc(doc);
-    }
+    }*/
 
 
 }

@@ -31,14 +31,14 @@ public class DocController {
     @RequestMapping(path = "/download", method = RequestMethod.GET)
     public List<ResourceEntity> downloadResource()
             throws Exception {
-        return resourceService.findAllByEnableFlag(EnableFlag.Y.getValue());
+        return resourceService.findAllByEnableFlag(EnableFlag.YES);
     }
 
     // [GET] /docs/upload
     @RequestMapping(path = "/upload", method = RequestMethod.GET)
     public ResponseEntity<Void> uploadResource(Map<String, Object> resources)
             throws Exception {
-        File file = FileUtil.loadResource("static/specification/guard.json");
+        File file = FileUtil.loadResource("specification/guard.json");
         String specification = FileUtil.readFile(file);
         Doc doc = JsonUtil.getJsonObject(Doc.class, specification);
         docService.uploadDoc(doc);

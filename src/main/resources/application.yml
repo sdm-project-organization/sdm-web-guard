@@ -85,11 +85,6 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-#security:
-#  oauth2:
-#    resource:
-#      user-info-uri: http://${env.host.local}:8090/user
-
 eureka:
   instance:
     hostname: ${env.eureka.local.host}
@@ -118,11 +113,6 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   main:
     allow-bean-definition-overriding: true
-
-#security:
-#  oauth2:
-#    resource:
-#      user-info-uri: http://${env.host.dev}:8090/user
 
 eureka:
   instance:

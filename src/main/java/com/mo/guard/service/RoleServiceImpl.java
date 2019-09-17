@@ -24,7 +24,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<RoleEntity> findAllByEnableFlag(byte enableFlag) {
+    public List<RoleEntity> findAllByEnableFlag(EnableFlag enableFlag) {
         return roleRepository.findAllByEnableFlag(enableFlag);
     }
 
@@ -34,7 +34,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public RoleEntity findBySequenceAndEnableFlag(int sequence, byte enableFlag) {
+    public RoleEntity findBySequenceAndEnableFlag(int sequence, EnableFlag enableFlag) {
         return roleRepository.findBySequenceAndEnableFlag(sequence, enableFlag);
     }
 
@@ -47,7 +47,7 @@ public class RoleServiceImpl implements RoleService {
      * */
     public Map<String, Object> findAllByOrgName(String orgName) {
         // TODO organ-name 적용예정
-        List<RoleEntity> roles = roleRepository.findAllByEnableFlag(EnableFlag.Y.getValue());
+        List<RoleEntity> roles = roleRepository.findAllByEnableFlag(EnableFlag.YES);
         Map<String, Object> result = new TreeMap<>();
 
         roles.stream().forEach(role -> {
@@ -85,7 +85,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleEntity updateBySequence(int sequence, RoleEntity targetRole) {
-        RoleEntity originRole = findBySequenceAndEnableFlag(sequence, EnableFlag.Y.getValue());
+        RoleEntity originRole = findBySequenceAndEnableFlag(sequence, EnableFlag.YES);
         originRole.setExpiredPeriod(targetRole.getExpiredPeriod());
         originRole.setDisplayName(targetRole.getDisplayName());
         originRole.setDisplayOrder(targetRole.getDisplayOrder());
@@ -98,7 +98,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleEntity unenable(int sequence) {
         RoleEntity role = findBySequence(sequence);
-        role.setEnableFlag(EnableFlag.N.getValue());
+        role.setEnableFlag(EnableFlag.NO);
         roleRepository.flush();
         return role;
     }

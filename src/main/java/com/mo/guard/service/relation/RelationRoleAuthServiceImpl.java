@@ -15,7 +15,7 @@ public class RelationRoleAuthServiceImpl implements RelationRoleAuthService {
     RelationRoleAuthRepository relationRoleAuthRepository;
 
     @Override
-    public List<RelationRoleAuth> findAllByEnableFlag(byte enableFlag) {
+    public List<RelationRoleAuth> findAllByEnableFlag(EnableFlag enableFlag) {
         return relationRoleAuthRepository.findAllByEnableFlag(enableFlag);
     }
 
@@ -25,7 +25,7 @@ public class RelationRoleAuthServiceImpl implements RelationRoleAuthService {
     }
 
     @Override
-    public RelationRoleAuth findByPkAndEnableFlag(String id, byte enableFlag) {
+    public RelationRoleAuth findByPkAndEnableFlag(String id, EnableFlag enableFlag) {
         /*RelationRoleAuthId relationAuthResourceId = new RelationRoleAuthId(
                 parseInt(id.split("-")[0]),
                 parseInt(id.split("-")[1]));
@@ -35,7 +35,7 @@ public class RelationRoleAuthServiceImpl implements RelationRoleAuthService {
 
     @Override
     public RelationRoleAuth updateBySequence(int sequence, RelationRoleAuth targetRelationRoleAuth) {
-        RelationRoleAuth originRelationRoleAuth = findBySequenceAndEnableFlag(sequence, EnableFlag.Y.getValue());
+        RelationRoleAuth originRelationRoleAuth = findBySequenceAndEnableFlag(sequence, EnableFlag.YES);
         originRelationRoleAuth.setDisplayName(targetRelationRoleAuth.getDisplayName());
         originRelationRoleAuth.setDisplayOrder(targetRelationRoleAuth.getDisplayOrder());
         originRelationRoleAuth.setDesc(targetRelationRoleAuth.getDesc());
@@ -46,7 +46,7 @@ public class RelationRoleAuthServiceImpl implements RelationRoleAuthService {
     @Override
     public RelationRoleAuth unenable(int sequence) {
         RelationRoleAuth relationAuthResource = findBySequence(sequence);
-        relationAuthResource.setEnableFlag(EnableFlag.N.getValue());
+        relationAuthResource.setEnableFlag(EnableFlag.NO);
         relationRoleAuthRepository.flush();
         return relationAuthResource;
     }

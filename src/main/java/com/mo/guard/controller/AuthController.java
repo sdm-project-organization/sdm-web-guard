@@ -26,7 +26,7 @@ public class AuthController {
     @RequestMapping(method = RequestMethod.GET)
     /*public List<AuthResource> getAuths() throws Exception {*/
     public List<AuthEntity> getAuths() throws Exception {
-        return authService.findAllByEnableFlag(EnableFlag.Y.getValue());
+        return authService.findAllByEnableFlag(EnableFlag.YES);
     }
 
     // [POST] /auths
@@ -50,7 +50,7 @@ public class AuthController {
     /*public AuthResource getAuth(@PathVariable int authId) throws Exception {*/
     public AuthEntity getAuth(@PathVariable int authId) throws Exception {
         /*return authService.findBySequence(authId);*/
-        return authService.findBySequenceAndEnableFlag(authId, EnableFlag.Y.getValue());
+        return authService.findBySequenceAndEnableFlag(authId, EnableFlag.YES);
     }
 
     // [PUT] /auths/{authId}

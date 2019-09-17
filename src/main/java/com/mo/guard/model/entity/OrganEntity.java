@@ -12,8 +12,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "G_ORGAN_TB")
@@ -26,8 +24,8 @@ public class OrganEntity {
     @Column(name = "organ_sq")
     public int sequence;
 
-    @OneToMany(mappedBy = "organ")
-    public List<AppEntity> apps = new ArrayList<>();
+    /*@OneToMany(mappedBy = "organ", fetch = FetchType.LAZY)
+    public List<AppEntity> apps = new ArrayList<>();*/
 
     @Column(name = "disp_ord")
     public Integer displayOrder;
@@ -38,11 +36,13 @@ public class OrganEntity {
     @Column(name = "`desc`")
     public String desc;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "active_fl", nullable = false)
-    public Byte activeFlag = ActiveFlag.Y.getValue();
+    public ActiveFlag activeFlag = ActiveFlag.YES;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "enable_fl", nullable = false)
-    public Byte enableFlag = EnableFlag.Y.getValue();
+    public EnableFlag enableFlag = EnableFlag.YES;
 
     @CreatedDate
     @Column(name = "created_dt", nullable = false, updatable = false)

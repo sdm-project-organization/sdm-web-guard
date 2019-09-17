@@ -1,5 +1,7 @@
 package com.mo.guard.service.core;
 
+import com.mo.guard.constant.ActiveFlag;
+import com.mo.guard.constant.EnableFlag;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -18,7 +20,8 @@ public interface CommonService<T> {
         return null;
     }
 
-    default T findByPkAndEnableFlag(String pk, byte enableFlag) {
+    default T findByPkAndEnableFlag(String pk,
+                                    EnableFlag enableFlag) {
         return null;
     }
 
@@ -26,19 +29,23 @@ public interface CommonService<T> {
         return null;
     }
 
-    default T findBySequenceAndEnableFlag(int sequence, byte enableFlag) {
+    default T findBySequenceAndEnableFlag(int sequence,
+                                          EnableFlag enableFlag) {
         return null;
     }
 
-    default T findBySequenceAndActiveFlagAndEnableFlag(int sequence, byte activeFlag, byte enableFlag) {
+    default T findBySequenceAndActiveFlagAndEnableFlag(int sequence,
+                                                       ActiveFlag activeFlag,
+                                                       EnableFlag enableFlag) {
         return null;
     }
 
-    default T findByDisplayNameAndEnableFlag(String displayName, byte enableFlag) {
+    default T findByDisplayNameAndEnableFlag(String displayName,
+                                             EnableFlag enableFlag) {
         return null;
     }
 
-    default List<T> findAllByEnableFlag(byte enableFlag) {
+    default List<T> findAllByEnableFlag(EnableFlag enableFlag) {
         return null;
     }
 
@@ -46,21 +53,27 @@ public interface CommonService<T> {
         return null;
     }
 
-    default List<T> findAllByDisplayNameAndEnableFlag(String displayName, byte enableFlag) {
+    default List<T> findAllByDisplayNameAndEnableFlag(String displayName,
+                                                      EnableFlag enableFlag) {
         return null;
     }
 
-    default List<T> findAllByDisplayNameAndActiveFlagAndEnableFlag(String displayName, byte activeFlag, byte enableFlag) {
+    default List<T> findAllByDisplayNameAndActiveFlagAndEnableFlag(String displayName,
+                                                                   ActiveFlag activeFlag,
+                                                                   EnableFlag enableFlag) {
         return null;
     }
 
-    default Page<T> findAllByPage(int offset, int limit) {
+    default Page<T> findAllByPage(int offset,
+                                  int limit) {
         return null;
     }
 
     // save
 
-    default T save(T obj) throws RuntimeException { return null; }
+    default T save(T obj) throws RuntimeException {
+        return null;
+    }
 
     default List<T> saveAll(List<T> list) throws RuntimeException {
         return null;
@@ -70,7 +83,11 @@ public interface CommonService<T> {
 
     /*default void updateBySequence(int sequence, T tree) throws RuntimeException { }*/
 
-    default T updateBySequence(int sequence, T tree) throws RuntimeException { return null; }
+    default T updateBySequence(int sequence,
+                               T tree)
+            throws RuntimeException {
+        return null;
+    }
 
     default T active(int sequence) {
         return null;
@@ -84,7 +101,8 @@ public interface CommonService<T> {
         return null;
     }
 
-    default T unenable(int sequence) throws RuntimeException {
+    default T unenable(int sequence)
+            throws RuntimeException {
         return null;
     }
 

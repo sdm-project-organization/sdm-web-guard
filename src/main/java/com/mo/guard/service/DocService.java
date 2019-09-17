@@ -4,10 +4,9 @@ import com.mo.guard.constant.EnableFlag;
 import com.mo.guard.exception.NotFoundAppNameException;
 import com.mo.guard.model.Doc;
 import com.mo.guard.model.entity.AppEntity;
-import com.mo.guard.model.entity.AuthEntity;
 import com.mo.guard.model.entity.ResourceEntity;
-import com.mo.guard.model.entity.RoleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class DocService {
         // == application ==
         String application = doc.getApplication();
         int applicationSequence;
-        AppEntity app = appService.findByDisplayNameAndEnableFlag(application, (byte) EnableFlag.Y.getValue());
+        AppEntity app = appService.findByDisplayNameAndEnableFlag(application, EnableFlag.YES);
         if (app != null) {
             applicationSequence = app.getSequence();
         } else {
@@ -64,53 +63,61 @@ public class DocService {
             });
 
             // resource save
-            resourceService.saveAll(entityResources);
+            try {
+                // TODO save and update ...
+                resourceService.saveAll(entityResources);
+            } catch (DataIntegrityViolationException e) {
+                // TODO data duplication exception
+                e.printStackTrace();
+            }
         }
 
         // == auth ==
-        List<AuthEntity> entityAuths = new ArrayList<>();
-        if (auths != null) {
-            listOfAuth.stream().forEach(entry -> {
-                AuthEntity entityAuth = new AuthEntity();
-                entityAuth.setDisplayName(entry.getKey());
-                List<String> reqResNames = entry.getValue();
-                for(String reqResName : reqResNames) {
-                    ResourceEntity entityResource = entityResources.stream()
-                            .filter(res -> reqResName.equals(res.getDisplayName()))
-                            .findFirst()
-                            .get();
-                    if(entityResource != null) {
-                        entityAuth.getResources().add(entityResource);
-                    }
-                }
-                entityAuths.add(entityAuth);
-            });
-            // auth save
-            authService.saveAll(entityAuths);
+//        List<AuthEntity> entityAuths = new ArrayList<>();
+//        if (auths != null) {
+//            listOfAuth.stream().forEach(entry -> {
+//                AuthEntity entityAuth = new AuthEntity();
+//                entityAuth.setDisplayName(entry.getKey());
+//                entityAuth.setAppSequence(applicationSequence);
+//                List<String> reqResNames = entry.getValue();
+//                for(String reqResName : reqResNames) {
+//                    ResourceEntity entityResource = entityResources.stream()
+//                            .filter(res -> reqResName.equals(res.getDisplayName()))
+//                            .findFirst()
+//                            .get();
+//                    if(entityResource != null) {
+//                        entityAuth.getResources().add(entityResource);
+//                    }
+//                }
+//                entityAuths.add(entityAuth);
+//            });
+//            // auth save
+//            authService.saveAll(entityAuths);
         }
 
 
         // == roles ==
-        List<RoleEntity> entityRoles = new ArrayList<>();
-        if (roles != null) {
-
-            listOfRole.stream().forEach(entry -> {
-                RoleEntity entityRole = new RoleEntity();
-                entityRole.setDisplayName(entry.getKey());
-                List<String> reqAuthNames = entry.getValue();
-                for(String reqAuthName : reqAuthNames) {
-                    AuthEntity entityAuth = entityAuths.stream()
-                            .filter(res -> reqAuthName.equals(res.getDisplayName()))
-                            .findFirst()
-                            .get();
-                    if(entityAuth != null) {
-                        entityRole.getAuths().add(entityAuth);
-                    }
-                }
-                entityRoles.add(entityRole);
-            });
-        }
-        // role save
-        roleService.saveAll(entityRoles);
-    }
+//        List<RoleEntity> entityRoles = new ArrayList<>();
+//        if (roles != null) {
+//
+//            listOfRole.stream().forEach(entry -> {
+//                RoleEntity entityRole = new RoleEntity();
+//                entityRole.setDisplayName(entry.getKey());
+//                entityRole.setOrganSequence(1);
+//                List<String> reqAuthNames = entry.getValue();
+//                for(String reqAuthName : reqAuthNames) {
+//                    AuthEntity entityAuth = entityAuths.stream()
+//                            .filter(res -> reqAuthName.equals(res.getDisplayName()))
+//                            .findFirst()
+//                            .get();
+//                    if(entityAuth != null) {
+//                        entityRole.getAuths().add(entityAuth);
+//                    }
+//                }
+//                entityRoles.add(entityRole);
+//            });
+//        }
+//        // role save
+//        roleService.saveAll(entityRoles);
+//    }
 }

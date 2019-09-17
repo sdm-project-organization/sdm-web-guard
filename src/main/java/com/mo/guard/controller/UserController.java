@@ -27,7 +27,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public List<UserEntity> getUsers() throws Exception {
-        return userService.findAllByEnableFlag(EnableFlag.Y.getValue());
+        return userService.findAllByEnableFlag(EnableFlag.YES);
     }
 
     // [POST] /users
@@ -67,7 +67,7 @@ public class UserController {
     @RequestMapping(path = "/username/{username}", method = RequestMethod.GET)
     /*public AppResource getApp(@PathVariable int userSeq) throws Exception {*/
     public UserEntity getUserByUsername(@PathVariable String username) throws Exception {
-        return userService.findByUsernameAndEnableFlag(username, EnableFlag.Y.getValue());
+        return userService.findByUsernameAndEnableFlag(username, EnableFlag.YES);
     }
 
     // [PUT] /users/{userSeq}

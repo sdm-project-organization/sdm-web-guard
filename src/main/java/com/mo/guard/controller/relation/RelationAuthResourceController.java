@@ -21,7 +21,7 @@ public class RelationAuthResourceController {
     // [GET] /relation/auth/resource
     @RequestMapping(method = RequestMethod.GET)
     public List<RelationAuthResource> getRelationAuthResources() throws Exception {
-        return relationAuthResourceService.findAllByEnableFlag(EnableFlag.Y.getValue());
+        return relationAuthResourceService.findAllByEnableFlag(EnableFlag.YES);
     }
 
     // [POST] /relation/auth/resource
@@ -42,7 +42,7 @@ public class RelationAuthResourceController {
     // [GET] /relation/auth/resource/{id}
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public RelationAuthResource getRelationAuthResource(@PathVariable String id) throws Exception {
-        return relationAuthResourceService.findByPkAndEnableFlag(id, EnableFlag.Y.getValue());
+        return relationAuthResourceService.findByPkAndEnableFlag(id, EnableFlag.YES);
     }
 
     // [PUT] /relation/auth/resource/{id}

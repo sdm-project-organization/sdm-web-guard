@@ -24,7 +24,7 @@ public class AuthServiceImpl implements AuthService {
     RelationAuthResourceRepository relationAuthResourceRepository;
 
     @Override
-    public List<AuthEntity> findAllByEnableFlag(byte enableFlag) {
+    public List<AuthEntity> findAllByEnableFlag(EnableFlag enableFlag) {
         return authRepository.findAllByEnableFlag(enableFlag);
     }
 
@@ -44,13 +44,13 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthEntity findBySequenceAndEnableFlag(int sequence, byte enableFlag) {
+    public AuthEntity findBySequenceAndEnableFlag(int sequence, EnableFlag enableFlag) {
         return authRepository.findBySequenceAndEnableFlag(sequence, enableFlag);
     }
 
     @Override
     public AuthEntity updateBySequence(int sequence, AuthEntity targetAuth) {
-        AuthEntity originAuth = findBySequenceAndEnableFlag(sequence, EnableFlag.Y.getValue());
+        AuthEntity originAuth = findBySequenceAndEnableFlag(sequence, EnableFlag.YES);
         originAuth.setDisplayName(targetAuth.getDisplayName());
         originAuth.setDisplayOrder(targetAuth.getDisplayOrder());
         originAuth.setDesc(targetAuth.getDesc());
@@ -65,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
      * @param listOfNewResourceId - 새로운 ResourceEntity Id 목록
      * */
     public void updateRelationWithResourcesBySequence(int authSequence, List<Integer> listOfNewResourceId) throws Exception {
-        AuthEntity auth = authRepository.findBySequenceAndEnableFlag(authSequence, EnableFlag.Y.getValue());
+        AuthEntity auth = authRepository.findBySequenceAndEnableFlag(authSequence, EnableFlag.YES);
         List<Integer> listOfOriginResourceId;
         List<Integer> listOfNoDuplicate = listOfNewResourceId;
         List<RelationAuthResource> result = new ArrayList<>();
@@ -78,7 +78,7 @@ public class AuthServiceImpl implements AuthService {
         if(auth.getResources().size() > 0) {
             listOfOriginResourceId = auth.getResources().stream().filter(((originResource)->{
                 if(listOfNewResourceId.indexOf(originResource.getSequence()) == -1) {
-                    originResource.setEnableFlag(EnableFlag.N.getValue()); // remove
+                    originResource.setEnableFlag(EnableFlag.NO); // remove
                     return false; // non-select
                 } else {
                     return true; // select
@@ -108,7 +108,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthEntity unenable(int sequence) {
         AuthEntity auth = findBySequence(sequence);
-        auth.setEnableFlag(EnableFlag.N.getValue());
+        auth.setEnableFlag(EnableFlag.NO);
         authRepository.flush();
         return auth;
     }

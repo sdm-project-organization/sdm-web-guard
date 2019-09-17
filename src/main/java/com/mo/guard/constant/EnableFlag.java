@@ -4,15 +4,15 @@ import lombok.Getter;
 
 @Getter
 public enum EnableFlag {
-    Y("YES", (byte) 1),
-    N("NO", (byte) 2);
+    NO(0, "NO"),
+    YES(1, "YES");
 
-    private String message;
-    private byte value;
+    private int value;
+    private String desc;
 
-    EnableFlag(String message, byte value) {
-        this.message = message;
+    EnableFlag(int order, String desc) {
         this.value = value;
+        this.desc = desc;
     }
 
 }

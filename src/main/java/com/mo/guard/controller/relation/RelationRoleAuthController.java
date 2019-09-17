@@ -21,7 +21,7 @@ public class RelationRoleAuthController {
     // [GET] /relation/role/auth
     @RequestMapping(method = RequestMethod.GET)
     public List<RelationRoleAuth> getRelationRoleAuths() throws Exception {
-        return relationRoleAuthService.findAllByEnableFlag(EnableFlag.Y.getValue());
+        return relationRoleAuthService.findAllByEnableFlag(EnableFlag.YES);
     }
 
     // [POST] /relation/role/auth
@@ -42,7 +42,7 @@ public class RelationRoleAuthController {
     // [GET] /relation/role/auth/{id}
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public RelationRoleAuth getRelationRoleAuth(@PathVariable String id) throws Exception {
-        return relationRoleAuthService.findByPkAndEnableFlag(id, EnableFlag.Y.getValue());
+        return relationRoleAuthService.findByPkAndEnableFlag(id, EnableFlag.YES);
     }
 
     // [PUT] /relation/role/auth/{id}
