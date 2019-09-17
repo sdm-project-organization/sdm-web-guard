@@ -33,10 +33,10 @@ public class AppController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> createApp(
             /*@Validated @RequestBody AppResource appResource,*/
-            @Validated @RequestBody AppEntity appResource,
+            @Validated @RequestBody AppEntity appEntity,
             UriComponentsBuilder uriComponentsBuilder) throws Exception {
         /*AppEntity app = appService.save(appResource.toInsert().toEntity());*/
-        AppEntity app = appService.save(appResource);
+        AppEntity app = appService.save(appEntity);
 
         URI resourceUri = MvcUriComponentsBuilder
                 .relativeTo(uriComponentsBuilder)

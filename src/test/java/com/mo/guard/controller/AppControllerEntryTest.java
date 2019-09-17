@@ -19,9 +19,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -42,7 +40,7 @@ public class AppControllerEntryTest {
 
     @Test
     public void getApps() throws Exception {
-
+        // TODO
     }
 
     @Test
@@ -64,7 +62,24 @@ public class AppControllerEntryTest {
     }
 
     @Test
-    public void createApp() {
+    public void createApp() throws Exception {
+
+        AppEntity targetApp = AppEntity.getSample();
+        targetApp.setSequence(9999);
+        targetApp.setDisplayName("newName");
+        targetApp.setDesc("newDesc");
+        targetApp.setDisplayOrder(9999);
+
+        final ResultActions actions = mockMvc
+                .perform(post("/apps")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(targetApp)))
+                .andDo(print());
+
+        // CASE1 - 200
+        // CASE2 - NOT FOUND ORGAN_SE
+        actions
+                .andExpect(status().isCreated());
 
     }
 
@@ -73,7 +88,6 @@ public class AppControllerEntryTest {
 
         AppEntity targetApp = AppEntity.getSample();
         targetApp.setSequence(9999);
-        targetApp.setOrganSequence(9999);
         targetApp.setDisplayName("newName");
         targetApp.setDesc("newDesc");
         targetApp.setDisplayOrder(9999);
@@ -105,11 +119,13 @@ public class AppControllerEntryTest {
 
     @Test
     public void deleteApp() throws Exception {
+
         final int SEQUENCE = 1;
         final ResultActions actions = mockMvc
                 .perform(delete("/apps/{appId}", SEQUENCE)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print());
+
         actions
                 .andExpect(status().isOk());
     }

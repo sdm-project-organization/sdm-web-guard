@@ -54,8 +54,8 @@ public class AppEntity {
     public Integer sequence;
 
     @Column(name = "organ_sq",
-            insertable = false,
-            updatable = false,
+            /*insertable = false,*/
+            /*updatable = false,*/
             nullable = false)
     public Integer organSequence;
 
